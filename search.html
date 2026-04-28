@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Search CVs — SeeCv</title>
+<link rel="stylesheet" href="css/shared.css"/>
+</head>
+<body class="cloud-page">
+<div class="page-wrap">
+<div class="top-nav">
+  <a href="index.html" class="logo-sm">see<span style="font-style:italic;">Cv</span><span style="font-size:9px;vertical-align:super;">™</span></a>
+  <div style="flex:1;margin:0 20px;">
+    <div class="search-row">
+      <input type="text" class="search-input" id="q" placeholder="Skills"/>
+      <input type="text" class="search-input loc" id="loc" placeholder="Location"/>
+      <button class="btn-gray" onclick="runSearch()">Search</button>
+    </div>
+    <div class="search-meta">
+      <div><label><input type="radio" name="sc" checked/> CVs from UK</label><label><input type="radio" name="sc"/> All CVs</label><span id="srch-count" style="margin-left:14px;color:#777;font-size:12px;"></span></div>
+      <a class="adv-link" href="advanced.html">Advanced search</a>
+    </div>
+  </div>
+  <div class="nav-right">
+    <a href="index.html">Home</a>
+    <a href="jobboard.html">Job Board</a>
+    <div class="basket-btn" id="nav-basket-wrap" onclick="window.location.href='basket.html'" style="display:none;">Basket <span class="basket-pill" id="nav-basket-count">0</span></div>
+    <div id="nav-right" style="display:flex;align-items:center;gap:10px;"></div>
+  </div>
+</div>
+
+<div class="card" style="padding:0;overflow:hidden;">
+  <div class="two-col">
+    <div class="main-col" id="results-list">
+      <div style="padding:40px 0;text-align:center;color:#888;">
+        <div style="font-size:15px;margin-bottom:6px;">Enter keywords above to search CVs</div>
+        <div style="font-size:13px;">Search is completely free</div>
+      </div>
+    </div>
+    <div class="side-col">
+      <div class="filter-group">
+        <div class="filter-title">Availability</div>
+        <label class="filter-opt"><input type="checkbox" checked/> Actively looking</label>
+        <label class="filter-opt"><input type="checkbox" checked/> Open to offers</label>
+      </div>
+      <div class="filter-group">
+        <div class="filter-title">Contract</div>
+        <label class="filter-opt"><input type="checkbox" checked/> Permanent</label>
+        <label class="filter-opt"><input type="checkbox" checked/> Contract</label>
+        <label class="filter-opt"><input type="checkbox"/> Freelance</label>
+        <label class="filter-opt"><input type="checkbox"/> Temporary</label>
+      </div>
+      <div class="filter-group">
+        <div class="filter-title">Salary</div>
+        <select style="font-size:12px;width:100%;padding:4px;border:1px solid #ccc;border-radius:2px;">
+          <option>Any</option><option>£20k+</option><option>£30k+</option><option>£40k+</option><option>£50k+</option><option>£60k+</option>
+        </select>
+      </div>
+      <div class="filter-group">
+        <div class="filter-title">Radius</div>
+        <select style="font-size:12px;width:100%;padding:4px;border:1px solid #ccc;border-radius:2px;">
+          <option>10 miles</option><option selected>25 miles</option><option>50 miles</option><option>Nationwide</option>
+        </select>
+      </div>
+      <div style="background:#fffde7;border:1px solid #f5e27a;border-radius:3px;padding:10px;margin-top:4px;">
+        <div style="font-size:12px;font-weight:700;color:#7d6608;margin-bottom:4px;">Basket</div>
+        <div class="text-xs text-muted" id="basket-mini">0 CVs</div>
+        <button class="btn-yellow" style="width:100%;margin-top:6px;font-size:12px;" onclick="window.location.href='basket.html'">View basket</button>
+      </div>
+      <div style="margin-top:8px;">
+        <button class="btn-outline" style="width:100%;" onclick="saveSearch()">Save this search</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div><div class="footer-links"><a href="index.html">Home</a><a href="about.html">About</a><a>Privacy</a><a href="help.html">Help</a></div><div class="footer-copy">© 2025 SeeCv Ltd</div></div>
+  <div class="footer-right"><button class="share-btn">Share</button><div style="display:flex;gap:3px;"><a class="social-icon fb">f</a><a class="social-icon tw">t</a><a class="social-icon em">✉</a></div></div>
+</div>
+</div>
+
+<div id="modal-signin" class="modal-overlay"><div class="modal"><button class="modal-x" onclick="closeModal('modal-signin')">×</button><h2>Sign in to SeeCv</h2><div class="type-row"><div class="type-opt active si-type" data-type="recruiter" onclick="setType(this,'si-type')">Recruiter</div><div class="type-opt si-type" data-type="candidate" onclick="setType(this,'si-type')">Candidate</div></div><div class="form-group"><label>Email</label><input type="email" id="si-email" placeholder="you@example.com"/></div><div class="form-group"><label>Password</label><input type="password" id="si-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')signIn()"/></div><button class="modal-btn" onclick="signIn()">Sign in</button><div class="modal-link">No account? <a onclick="closeModal('modal-signin');openModal('modal-signup')">Sign up free</a></div></div></div>
+<div id="modal-signup" class="modal-overlay"><div class="modal"><button class="modal-x" onclick="closeModal('modal-signup')">×</button><h2>Join SeeCv free</h2><div class="type-row"><div class="type-opt active su-type" data-type="candidate" onclick="setType(this,'su-type')">Candidate</div><div class="type-opt su-type" data-type="recruiter" onclick="setType(this,'su-type')">Recruiter</div></div><div class="form-group"><label>Name</label><input type="text" id="su-name"/></div><div class="form-group"><label>Email</label><input type="email" id="su-email"/></div><div class="form-group"><label>Password</label><input type="password" id="su-pass" onkeydown="if(event.key==='Enter')signUp()"/></div><button class="modal-btn" onclick="signUp()">Create account</button><div class="modal-link">Have account? <a onclick="closeModal('modal-signup');openModal('modal-signin')">Sign in</a></div></div></div>
+<div id="toast"></div>
+<script src="js/shared.js"></script>
+<script>
+function runSearch() {
+  const q = document.getElementById('q').value.toLowerCase().trim();
+  const loc = document.getElementById('loc').value.toLowerCase().trim();
+  let results = [...CANDIDATES];
+  if (q) results = results.filter(c => c.title.toLowerCase().includes(q)||c.skills.some(s=>s.toLowerCase().includes(q))||c.summary.toLowerCase().includes(q)||c.sector.toLowerCase().includes(q)||c.name.toLowerCase().includes(q));
+  if (loc) results = results.filter(c => c.location.toLowerCase().includes(loc));
+  const count = document.getElementById('srch-count');
+  if (count) count.innerHTML = `About <strong>${results.length}</strong> result${results.length!==1?'s':''} (0.07 seconds)`;
+  const list = document.getElementById('results-list');
+  if (!results.length) { list.innerHTML='<div style="padding:40px 0;text-align:center;color:#888;"><p style="font-size:15px;margin-bottom:6px;">No CVs found.</p><p style="font-size:13px;">Try different keywords or remove the location filter.</p></div>'; return; }
+  list.innerHTML = results.map(c=>`<div class="result-item">
+    <div class="result-avatar" id="av-${c.id}" style="background:${c.bg}" onclick="window.location.href='profile.html?id=${c.id}'">${c.initials}</div>
+    <div class="result-body">
+      <a class="result-title" href="profile.html?id=${c.id}">${c.title} — ${c.name}</a>
+      <div class="result-url">seecv.com/cv/${c.name.toLowerCase().replace(/[\s']/g,'-')} &nbsp;·&nbsp; ${c.location}</div>
+      <div class="result-meta"><span class="badge-${c.status==='active'?'green':'amber'}">${c.status==='active'?'Actively looking':'Open to offers'}</span> &nbsp;·&nbsp; Notice: ${c.notice} &nbsp;·&nbsp; ${c.salary}</div>
+      <div class="result-snippet">${c.summary}</div>
+      <div class="result-skills">${c.skills.slice(0,5).map(s=>`<span class="skill-tag">${s}</span>`).join('')}</div>
+      <div class="result-actions">
+        <a onclick="addToBasket(${c.id},document.getElementById('av-${c.id}'))">Add to basket</a>
+        <a onclick="window.location.href='basket.html'" style="color:#006621;font-weight:700;">Buy contact — £1</a>
+        <a onclick="saveCV(${c.id})">Save</a>
+        <a href="profile.html?id=${c.id}">View full CV</a>
+      </div>
+    </div>
+  </div>`).join('');
+  setInterval(()=>{ const m=document.getElementById('basket-mini'); if(m){ const b=getBasket(); m.textContent=b.length+' CV'+(b.length!==1?'s':''); } },400);
+}
+function saveSearch() { const u=getUser(); if(!u){openModal('modal-signin');return;} toast('Search saved to your account'); }
+document.addEventListener('DOMContentLoaded',()=>{
+  const params=new URLSearchParams(window.location.search);
+  const q=params.get('q')||''; const loc=params.get('loc')||'';
+  document.getElementById('q').value=q; document.getElementById('loc').value=loc;
+  if(q||loc) runSearch();
+});
+</script>
+</body></html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SeeCv</title>
+<link rel="stylesheet" href="css/shared.css"/>
+</head>
+<body class="cloud-page">
+<div class="page-wrap">
+  <div class="top-nav">
+    <a href="index.html" class="logo-sm">see<span style="font-style:italic;">Cv</span></a>
+    <div class="nav-right" style="margin-left:auto;">
+      <a href="search.html">Search CVs</a>
+      <a href="jobboard.html">Job Board</a>
+      <a href="about.html">About</a>
+      <a href="help.html">Help</a>
+      <div class="basket-btn" id="nav-basket-wrap" onclick="window.location.href='basket.html'" style="display:none;">Basket <span class="basket-pill" id="nav-basket-count">0</span></div>
+      <div id="nav-right" style="display:flex;align-items:center;gap:10px;"></div>
+    </div>
+  </div>
+  <div class="card" id="page-content">Loading...</div>
+  <div class="footer">
+    <div><div class="footer-links"><a href="index.html">Home</a><a href="about.html">About</a><a>Privacy</a><a href="help.html">Help</a></div><div class="footer-copy">© 2025 SeeCv Ltd</div></div>
+  </div>
+</div>
+<div id="modal-signin" class="modal-overlay"><div class="modal"><button class="modal-x" onclick="closeModal('modal-signin')">×</button><h2>Sign in to SeeCv</h2><div class="type-row"><div class="type-opt active si-type" data-type="recruiter" onclick="setType(this,'si-type')">Recruiter</div><div class="type-opt si-type" data-type="candidate" onclick="setType(this,'si-type')">Candidate</div></div><div class="form-group"><label>Email</label><input type="email" id="si-email"/></div><div class="form-group"><label>Password</label><input type="password" id="si-pass" onkeydown="if(event.key==='Enter')signIn()"/></div><button class="modal-btn" onclick="signIn()">Sign in</button><div class="modal-link">No account? <a onclick="closeModal('modal-signin');openModal('modal-signup')">Sign up free</a></div></div></div>
+<div id="modal-signup" class="modal-overlay"><div class="modal"><button class="modal-x" onclick="closeModal('modal-signup')">×</button><h2>Join SeeCv free</h2><div class="type-row"><div class="type-opt active su-type" data-type="candidate" onclick="setType(this,'su-type')">Candidate</div><div class="type-opt su-type" data-type="recruiter" onclick="setType(this,'su-type')">Recruiter</div></div><div class="form-group"><label>Name</label><input type="text" id="su-name"/></div><div class="form-group"><label>Email</label><input type="email" id="su-email"/></div><div class="form-group"><label>Password</label><input type="password" id="su-pass" onkeydown="if(event.key==='Enter')signUp()"/></div><button class="modal-btn" onclick="signUp()">Create account</button></div></div>
+<div id="toast"></div>
+<script src="js/shared.js"></script>
+<script src="js/pages.js"></script>
+</body>
+</html>
