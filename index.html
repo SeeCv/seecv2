@@ -1,694 +1,588 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>SeeCv — The Multimedia CV Database</title>
-  <meta name="description" content="SeeCv — Find talent fast with the multimedia CV database for everyone. Photos, video, pay as you go. Free to search."/>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link rel="stylesheet" href="css/style.css"/>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 40'><rect width='40' height='40' rx='8' fill='%231565c0'/><text x='5' y='30' font-size='26' font-weight='900' fill='%23fdd835' font-family='Georgia,serif'>S</text></svg>"/>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>SeeCv — The Multimedia CV Database</title>
+<meta name="description" content="SeeCv — find talent with photos and video. Free to search. Pay as you go from £1."/>
+<link rel="stylesheet" href="css/style.css"/>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='4' fill='%23d6eaf8'/><text x='3' y='24' font-size='22' font-weight='700' fill='%231a6fb5' font-family='Arial'>S</text></svg>"/>
 </head>
 <body>
 
-<!-- ══════════════════════ GLOBAL NAV ══════════════════════ -->
-<nav class="nav">
+<!-- ══ GLOBAL NAV ══════════════════════════════════════ -->
+<nav class="nav cloud-bg">
   <div class="nav-inner">
-    <a class="nav-logo" onclick="App.go('home')">see<span>C</span>v</a>
+    <a class="nav-logo" onclick="App.go('home')">see<span>Cv</span></a>
 
-    <div class="nav-search" id="nav-search-bar">
-      <input type="text" id="home-q" placeholder="Job title, skills, keywords..."/>
-      <input type="text" id="home-loc" class="nav-search-loc" placeholder="Location"/>
-      <button class="nav-search-btn" onclick="App.search(document.getElementById('home-q').value, document.getElementById('home-loc').value)">Search</button>
+    <div class="nav-search-wrap" id="nav-search-bar">
+      <input type="text" id="home-q" placeholder="Skills, job title, keywords..."/>
+      <div class="nav-loc-sep"></div>
+      <input type="text" id="home-loc" class="nav-loc" placeholder="Location"/>
+      <button class="nav-search-btn-small" onclick="App.search(document.getElementById('home-q').value,document.getElementById('home-loc').value)">Search</button>
     </div>
 
-    <div class="nav-right">
-      <div class="nav-basket" id="nav-basket-wrap" onclick="App.go('basket')" style="display:none;">
-        🛒 <span class="basket-pill" id="nav-basket-count">0</span>
+    <div class="nav-links">
+      <a onclick="App.go('search')">Search CVs</a>
+      <a onclick="App.go('jobboard')">Job Board</a>
+      <a onclick="App.go('about')">About SeeCv</a>
+      <a onclick="App.go('help')">Help</a>
+      <div class="nav-basket-btn" id="nav-basket-wrap" onclick="App.go('basket')" style="display:none;">
+        Basket <span class="basket-count-pill" id="nav-basket-count">0</span>
       </div>
-      <a class="nav-link" onclick="App.go('search')">Search CVs</a>
-      <a class="nav-link" onclick="App.go('about')">About</a>
-      <a class="nav-link" onclick="App.go('help')">Help</a>
-      <div class="flex-center gap-1" id="nav-right"></div>
+      <div id="nav-right" class="flex-center gap-1"></div>
     </div>
   </div>
 </nav>
 
-<!-- ══════════════════════ PAGE: HOME ══════════════════════ -->
-<div id="page-home" class="page">
+<!-- ══ PAGE: HOME ══════════════════════════════════════ -->
+<div id="page-home" class="page cloud-bg" style="min-height:100vh;">
 
-  <!-- Hero -->
-  <section class="hero-section">
-    <div class="hero-inner">
-      <div class="hero-text">
-        <h1>Let the world<br/><span>see your skills...</span></h1>
-        <p>The only CV platform with photos and video — for tradespeople, students, artists, freelancers and professionals. Anyone. Everyone.</p>
-        <div class="hero-cta">
-          <button class="btn btn-xl btn-yellow" onclick="App.openModal('modal-signup')">Sign Up Free</button>
-          <button class="btn btn-xl btn-ghost" onclick="App.go('about')">Learn More</button>
+  <!-- Candidate hero strip -->
+  <div style="background:rgba(255,255,255,0.5);border-bottom:1px solid var(--sky-dark);padding:12px 20px;display:flex;justify-content:space-between;align-items:center;">
+    <div>
+      <span style="font-size:14px;font-weight:700;color:var(--text-mid);">Let the world see your skills...</span>
+      <span style="font-size:13px;color:var(--text-muted);margin-left:10px;">Start your online CV with pictures and video. Its free and anyone can join.</span>
+      <a onclick="App.go('help')" style="font-size:13px;margin-left:10px;">View CV Tips</a>
+    </div>
+    <a onclick="App.openModal('modal-signup')" class="btn btn-yellow" style="font-size:16px;padding:10px 28px;font-weight:700;">Sign Up</a>
+  </div>
+
+  <!-- Main search card -->
+  <div style="padding:32px 20px 16px;display:flex;justify-content:space-between;align-items:flex-start;max-width:var(--max);margin:0 auto;">
+
+    <!-- Left: bee + big logo + search -->
+    <div style="flex:1;max-width:620px;">
+      <div class="bee-wrap"><span class="bee" title="SeeCv — busy finding talent!">🐝</span></div>
+      <div class="home-logo-wrap">
+        <div class="home-logo">see<span>Cv</span></div>
+      </div>
+      <div class="home-tagline">The multimedia CV database — for anyone and everyone</div>
+
+      <div class="home-search-area">
+        <div class="search-box">
+          <input type="text" id="hero-q" placeholder="Skills, job title, keywords..."/>
+          <div class="sep"></div>
+          <input type="text" id="hero-loc" class="loc-field" placeholder="Location"/>
+          <button class="search-btn-main" onclick="App.search(document.getElementById('hero-q').value,document.getElementById('hero-loc').value)">Search</button>
         </div>
-        <div style="margin-top:20px;display:flex;gap:28px;flex-wrap:wrap;">
-          <span style="color:rgba(255,255,255,.75);font-size:13px;">✓ Free for candidates</span>
-          <span style="color:rgba(255,255,255,.75);font-size:13px;">✓ From £1 per contact</span>
-          <span style="color:rgba(255,255,255,.75);font-size:13px;">✓ No monthly fees</span>
+        <div class="scope-row">
+          <label><input type="radio" name="hscope" checked/> CVs from UK</label>
+          <label><input type="radio" name="hscope"/> All CVs</label>
+          <a onclick="App.go('advanced')" style="margin-left:auto;">Advanced search</a>
+        </div>
+        <div class="home-btn-row">
+          <button class="btn btn-outline" onclick="App.search('','')" style="font-size:13px;">Search CVs</button>
+          <button class="btn btn-outline" onclick="App.openModal('modal-signup')" style="font-size:13px;">Create Free CV</button>
         </div>
       </div>
 
-      <div class="hero-card">
-        <h2>Find the people you need...</h2>
-        <div class="hero-search">
-          <div class="hero-search-row">
-            <input type="text" id="hero-q" placeholder="Skills, job title, keywords..."/>
-          </div>
-          <div class="hero-search-row">
-            <input type="text" id="hero-loc" placeholder="Town, city or postcode"/>
-            <button class="btn btn-blue" onclick="App.search(document.getElementById('hero-q').value,document.getElementById('hero-loc').value)" style="flex-shrink:0;">Search</button>
-          </div>
-          <div class="hero-search-scope">
-            <label><input type="radio" name="hscope" checked/> CVs from UK</label>
-            <label><input type="radio" name="hscope"/> All CVs</label>
-            <span style="flex:1;text-align:right;"><a onclick="App.go('advanced')" style="font-size:12px;">Advanced search</a></span>
-          </div>
-        </div>
-        <div style="border-top:1px solid var(--border);margin-top:16px;padding-top:14px;">
-          <p style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--text-3);margin-bottom:8px;">Popular searches</p>
-          <div style="display:flex;flex-wrap:wrap;gap:6px;">
-            <a onclick="App.search('plumber','')" class="badge badge-blue" style="cursor:pointer;">Plumber</a>
-            <a onclick="App.search('developer','')" class="badge badge-blue" style="cursor:pointer;">Developer</a>
-            <a onclick="App.search('designer','')" class="badge badge-blue" style="cursor:pointer;">Designer</a>
-            <a onclick="App.search('chef','')" class="badge badge-blue" style="cursor:pointer;">Chef</a>
-            <a onclick="App.search('marketing','')" class="badge badge-blue" style="cursor:pointer;">Marketing</a>
-            <a onclick="App.search('childminder','')" class="badge badge-blue" style="cursor:pointer;">Childminder</a>
-          </div>
-        </div>
+      <!-- Recruiter sign up -->
+      <div style="text-align:center;margin-top:12px;font-size:13px;color:var(--text-muted);">
+        Looking to hire? <a onclick="App.openModal('modal-signup')">Recruiter sign up →</a>
       </div>
     </div>
-  </section>
 
-  <!-- Features -->
-  <section class="features-strip">
-    <div class="container">
-      <div class="features-grid">
-        <div class="feature-box">
-          <div class="feature-icon" style="background:#e3f0fc;">🎬</div>
-          <h3>Multimedia CVs</h3>
-          <p>Photos, videos and 30-second pitch clips. See the person, not just words on a page.</p>
+    <!-- Right: Find people box -->
+    <div style="width:320px;margin-left:40px;flex-shrink:0;">
+      <div class="card" style="background:rgba(255,255,255,0.85);border-color:var(--sky-dark);">
+        <div style="font-size:17px;font-weight:700;color:var(--text);margin-bottom:14px;">Find the people you need...</div>
+        <div class="search-box mb-2" style="border-radius:3px;">
+          <input type="text" id="find-q" placeholder="Skills"/>
+          <div class="sep"></div>
+          <input type="text" id="find-loc" class="loc-field" placeholder="Location"/>
+          <button class="search-btn-main" style="border-radius:0;" onclick="App.search(document.getElementById('find-q').value,document.getElementById('find-loc').value)">Search</button>
         </div>
-        <div class="feature-box">
-          <div class="feature-icon" style="background:#e8f5e9;">🔍</div>
-          <h3>Google-style search</h3>
-          <p>Powerful free-word search with advanced filters. Find exactly who you need in seconds.</p>
+        <div class="scope-row mb-2">
+          <label><input type="radio" name="fscope" checked/> CVs from UK</label>
+          <label><input type="radio" name="fscope"/> All CVs</label>
+          <a onclick="App.go('advanced')" style="margin-left:auto;font-size:12px;">Advanced</a>
         </div>
-        <div class="feature-box">
-          <div class="feature-icon" style="background:#fff9c4;">💷</div>
-          <h3>Pay as you go</h3>
-          <p>Search free. Only pay from £1 when you want to contact someone. No subscriptions.</p>
+
+        <!-- Browse by sector -->
+        <div style="border-top:1px solid var(--border-light);padding-top:12px;">
+          <div style="font-size:12px;font-weight:700;color:var(--text-mid);margin-bottom:8px;">Browse by Sector</div>
+          <div class="sector-grid">
+            <a class="sector-link" onclick="App.search('accounting finance','')">Accounting / Finance</a>
+            <a class="sector-link" onclick="App.search('customer service','')">Customer Service</a>
+            <a class="sector-link" onclick="App.search('insurance','')">Insurance / Pensions</a>
+            <a class="sector-link" onclick="App.search('public sector','')">Public Sector</a>
+            <a class="sector-link" onclick="App.search('admin secretarial','')">Admin / Secretarial</a>
+            <a class="sector-link" onclick="App.search('education training','')">Education / Training</a>
+            <a class="sector-link" onclick="App.search('international','')">International</a>
+            <a class="sector-link" onclick="App.search('purchasing supply','')">Purchasing / Supply</a>
+            <a class="sector-link" onclick="App.search('agriculture','')">Agriculture</a>
+            <a class="sector-link" onclick="App.search('electronics','')">Electronics</a>
+            <a class="sector-link" onclick="App.search('IT tech','')">IT / Telecoms</a>
+            <a class="sector-link" onclick="App.search('recruitment','')">Recruitment</a>
+            <a class="sector-link" onclick="App.search('fashion','')">Apparel / Fashion</a>
+            <a class="sector-link" onclick="App.search('engineering','')">Engineering</a>
+            <a class="sector-link" onclick="App.search('law legal','')">Law Enforcement</a>
+            <a class="sector-link" onclick="App.search('retail','')">Retail / Wholesale</a>
+            <a class="sector-link" onclick="App.search('armed forces','')">Armed Forces</a>
+            <a class="sector-link" onclick="App.search('entertainment tv','')">Entertainment / TV</a>
+            <a class="sector-link" onclick="App.search('legal','')">Legal</a>
+            <a class="sector-link" onclick="App.search('sales business','')">Sales / Business</a>
+            <a class="sector-link" onclick="App.search('art design media','')">Art / Design / Media</a>
+            <a class="sector-link" onclick="App.search('management','')">Executive / Management</a>
+            <a class="sector-link" onclick="App.search('leisure tourism','')">Leisure / Tourism</a>
+            <a class="sector-link" onclick="App.search('science research','')">Science / Research</a>
+            <a class="sector-link" onclick="App.search('automotive','')">Automotive</a>
+            <a class="sector-link" onclick="App.search('government','')">Government</a>
+            <a class="sector-link" onclick="App.search('manufacturing','')">Manufacturing</a>
+            <a class="sector-link" onclick="App.search('skilled trades','')">Skilled / Trades</a>
+            <a class="sector-link" onclick="App.search('aviation aerospace','')">Aviation</a>
+            <a class="sector-link" onclick="App.search('graduate','')">Graduate</a>
+            <a class="sector-link" onclick="App.search('marketing','')">Marketing / Advertising</a>
+            <a class="sector-link" onclick="App.search('social care','')">Social Care</a>
+            <a class="sector-link" onclick="App.search('banking','')">Banking</a>
+            <a class="sector-link" onclick="App.search('health beauty','')">Health / Beauty</a>
+            <a class="sector-link" onclick="App.search('media new media','')">Media / New Media</a>
+            <a class="sector-link" onclick="App.search('transport logistics','')">Transport / Logistics</a>
+            <a class="sector-link" onclick="App.search('childcare','')">Childcare / Youth</a>
+            <a class="sector-link" onclick="App.search('healthcare nursing','')">Healthcare / Nursing</a>
+            <a class="sector-link" onclick="App.search('other','')">Other</a>
+            <a class="sector-link" onclick="App.search('utilities','')">Utilities / Nuclear</a>
+            <a class="sector-link" onclick="App.search('construction','')">Construction</a>
+            <a class="sector-link" onclick="App.search('hospitality catering','')">Hospitality / Catering</a>
+            <a class="sector-link" onclick="App.search('pharmaceuticals','')">Pharmaceuticals</a>
+            <a class="sector-link" onclick="App.search('voluntary charities','')">Voluntary / Charities</a>
+            <a class="sector-link" onclick="App.search('consultancy','')">Consultancy</a>
+            <a class="sector-link" onclick="App.search('human resources','')">Human Resources</a>
+            <a class="sector-link" onclick="App.search('printing publishing','')">Printing / Publishing</a>
+          </div>
         </div>
-        <div class="feature-box">
-          <div class="feature-icon" style="background:#fce4ec;">👷</div>
-          <h3>For everyone</h3>
-          <p>Tradespeople, students, creatives, professionals — SeeCv is for any skill, any sector.</p>
+
+        <!-- Popular CVs -->
+        <div style="border-top:1px solid var(--border-light);padding-top:10px;margin-top:10px;">
+          <div style="font-size:12px;font-weight:700;color:var(--text-mid);margin-bottom:6px;">Popular CVs</div>
+          <div class="pop-grid">
+            <a class="pop-item" onclick="App.openProfile(1)">Gas Engineer... Manchester</a>
+            <a class="pop-item" onclick="App.openProfile(4)">Graphic Designer... London</a>
+            <a class="pop-item" onclick="App.openProfile(5)">Developer... Birmingham</a>
+            <a class="pop-item" onclick="App.openProfile(8)">Marketing Mgr... Bristol</a>
+            <a class="pop-item" onclick="App.openProfile(6)">Childminder... Leeds</a>
+            <a class="pop-item" onclick="App.openProfile(7)">Chef... Manchester</a>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- Browse by sector -->
-  <section class="sectors-section">
-    <div class="container">
-      <h2>Browse by sector</h2>
-      <div class="sectors-grid">
-        <div class="sector-btn" onclick="App.search('trades construction','')"><div class="sector-icon">🔧</div>Trades &amp; Construction</div>
-        <div class="sector-btn" onclick="App.search('IT tech developer','')"><div class="sector-icon">💻</div>IT &amp; Technology</div>
-        <div class="sector-btn" onclick="App.search('design creative','')"><div class="sector-icon">🎨</div>Art &amp; Design</div>
-        <div class="sector-btn" onclick="App.search('healthcare nurse','')"><div class="sector-icon">🏥</div>Healthcare</div>
-        <div class="sector-btn" onclick="App.search('hospitality chef','')"><div class="sector-icon">🍽️</div>Hospitality</div>
-        <div class="sector-btn" onclick="App.search('marketing sales','')"><div class="sector-icon">📈</div>Sales &amp; Marketing</div>
-        <div class="sector-btn" onclick="App.search('childcare education','')"><div class="sector-icon">👧</div>Childcare &amp; Education</div>
-        <div class="sector-btn" onclick="App.search('engineering','')"><div class="sector-icon">⚙️</div>Engineering</div>
-        <div class="sector-btn" onclick="App.search('finance accounting','')"><div class="sector-icon">💼</div>Finance &amp; Accounting</div>
-        <div class="sector-btn" onclick="App.search('transport logistics','')"><div class="sector-icon">🚛</div>Transport &amp; Logistics</div>
-        <div class="sector-btn" onclick="App.search('sports fitness','')"><div class="sector-icon">⚽</div>Sports &amp; Fitness</div>
-        <div class="sector-btn" onclick="App.search('freelance','')"><div class="sector-icon">🌟</div>Freelance &amp; Gig</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Popular CVs -->
-  <section class="popular-section">
-    <div class="container">
-      <h2>Popular CVs right now</h2>
-      <div class="popular-grid" id="popular-grid">
-        <!-- filled by JS -->
-      </div>
-    </div>
-  </section>
-
-  <!-- CTA strip -->
-  <div style="background:var(--blue);padding:52px 0;text-align:center;">
-    <div class="container">
-      <h2 style="font-family:'Nunito',sans-serif;font-size:30px;font-weight:900;color:#fff;margin-bottom:10px;">Ready to be found?</h2>
-      <p style="color:rgba(255,255,255,.8);font-size:16px;margin-bottom:24px;">Create your free multimedia CV in minutes. Let employers find you.</p>
-      <button class="btn btn-yellow btn-xl" onclick="App.openModal('modal-signup')">Create Your Free CV</button>
     </div>
   </div>
 
-  <footer class="footer">
-    <div class="footer-inner">
-      <div class="footer-top">
-        <div class="footer-brand">
-          <div class="logo">see<span>C</span>v</div>
-          <p>The multimedia CV database for everyone. Cut out the recruitment agent. Find great people fast.</p>
-        </div>
-        <div class="footer-col">
-          <h4>For Candidates</h4>
-          <a onclick="App.openModal('modal-signup')">Create free CV</a>
-          <a onclick="App.go('help')">CV tips</a>
-          <a onclick="App.openModal('modal-signin')">Sign in</a>
-        </div>
-        <div class="footer-col">
-          <h4>For Recruiters</h4>
-          <a onclick="App.go('search')">Search CVs</a>
-          <a onclick="App.go('basket')">Buy credits</a>
-          <a onclick="App.go('advanced')">Advanced search</a>
-        </div>
-        <div class="footer-col">
-          <h4>Company</h4>
-          <a onclick="App.go('about')">About SeeCv</a>
-          <a onclick="App.go('help')">Help &amp; FAQs</a>
-          <a>Privacy policy</a>
-          <a>Terms of use</a>
-          <a>Contact us</a>
-        </div>
-      </div>
-      <div class="footer-bottom">
-        <p>© 2025 SeeCv Ltd. All rights reserved.</p>
-        <p>The multimedia CV database — for everyone</p>
-      </div>
-    </div>
+  <footer class="footer cloud-bg">
+    <a onclick="App.go('about')">Contact us</a>
+    <a>Privacy policy</a>
+    <a>Terms of use</a>
+    <a onclick="App.go('help')">Help</a>
+    <span>Report page</span>
+    <a onclick="App.go('help')">Tell a friend</a>
+    <a onclick="App.go('help')">How can we improve?</a>
+    <span style="margin-left:auto;">© 2025 SeeCv Ltd</span>
+    <span>|</span>
+    <a onclick="App.openModal('modal-signup')">Recruiter sign up</a>
   </footer>
 </div>
 
-<!-- ══════════════════════ PAGE: SEARCH ══════════════════════ -->
+<!-- ══ PAGE: SEARCH RESULTS ══════════════════════════════ -->
 <div id="page-search" class="page">
-  <!-- Sub-nav search bar -->
-  <div style="background:#fff;border-bottom:1px solid var(--border);padding:14px 0;">
-    <div class="container">
-      <div style="display:flex;gap:10px;align-items:center;">
-        <div style="display:flex;flex:1;max-width:720px;background:#fff;border:1.5px solid var(--border);border-radius:7px;overflow:hidden;">
-          <input type="text" id="srch-q" placeholder="Skills, job title, keywords..." style="border:none;border-radius:0;flex:1;"/>
-          <div style="width:1px;background:var(--border);align-self:stretch;margin:8px 0;"></div>
-          <input type="text" id="srch-loc" placeholder="Location" style="border:none;border-radius:0;width:190px;"/>
-        </div>
-        <button class="btn btn-blue" onclick="App.search(document.getElementById('srch-q').value,document.getElementById('srch-loc').value)">Search</button>
-        <a onclick="App.go('advanced')" class="btn btn-outline btn-sm">Advanced</a>
+  <!-- Search bar -->
+  <div style="background:var(--sky);border-bottom:1px solid var(--sky-dark);padding:10px 20px;" class="cloud-bg">
+    <div style="display:flex;gap:8px;align-items:center;max-width:var(--max);margin:0 auto;">
+      <div class="search-box" style="flex:1;max-width:700px;border-radius:3px;">
+        <input type="text" id="srch-q" placeholder="Skills, job title, keywords..."/>
+        <div class="sep"></div>
+        <input type="text" id="srch-loc" class="loc-field" placeholder="Location"/>
+        <button class="search-btn-main" style="border-radius:0;" onclick="App.search(document.getElementById('srch-q').value,document.getElementById('srch-loc').value)">Search</button>
       </div>
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:10px;">
-        <p class="text-sm text-muted" id="srch-count">Enter a search above</p>
-        <div style="display:flex;align-items:center;gap:14px;font-size:12px;color:var(--text-2);">
-          <label style="text-transform:none;letter-spacing:0;font-size:12px;font-weight:400;display:flex;align-items:center;gap:5px;margin:0;cursor:pointer;"><input type="radio" name="srch-scope" checked/> UK CVs</label>
-          <label style="text-transform:none;letter-spacing:0;font-size:12px;font-weight:400;display:flex;align-items:center;gap:5px;margin:0;cursor:pointer;"><input type="radio" name="srch-scope"/> All CVs</label>
-          <select style="font-size:12px;border:1px solid var(--border);border-radius:4px;padding:4px 8px;width:auto;">
-            <option>Sort: Relevance</option><option>Sort: Most recent</option><option>Sort: Salary ↑</option>
-          </select>
-        </div>
+      <a onclick="App.go('advanced')" class="btn btn-outline btn-sm">Advanced search</a>
+    </div>
+    <div style="max-width:var(--max);margin:6px auto 0;display:flex;justify-content:space-between;align-items:center;">
+      <div class="scope-row">
+        <label><input type="radio" name="sscope" checked/> CVs from UK</label>
+        <label><input type="radio" name="sscope"/> All CVs</label>
+        <span id="srch-count" class="text-muted" style="font-size:12px;margin-left:16px;"></span>
+      </div>
+      <select style="font-size:12px;padding:3px 8px;border:1px solid var(--border);border-radius:2px;">
+        <option>Sort: Relevance</option><option>Most recent</option><option>Salary high-low</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="results-wrap" style="max-width:var(--max);margin:0 auto;width:100%;">
+    <div class="results-main" id="srch-list"></div>
+
+    <div class="results-right">
+      <div class="filter-section">
+        <h4>Refine results</h4>
+        <div class="filter-opt"><input type="checkbox" checked/> Actively looking</div>
+        <div class="filter-opt"><input type="checkbox" checked/> Open to offers</div>
+      </div>
+      <div class="filter-section">
+        <h4>Contract type</h4>
+        <div class="filter-opt"><input type="checkbox" checked/> Permanent</div>
+        <div class="filter-opt"><input type="checkbox" checked/> Contract</div>
+        <div class="filter-opt"><input type="checkbox"/> Freelance</div>
+        <div class="filter-opt"><input type="checkbox"/> Temporary</div>
+      </div>
+      <div class="filter-section">
+        <h4>Salary</h4>
+        <select style="font-size:12px;width:100%;margin-bottom:6px;">
+          <option>Any salary</option><option>£20k+</option><option>£30k+</option><option>£40k+</option><option>£50k+</option><option>£60k+</option>
+        </select>
+      </div>
+      <div class="filter-section">
+        <h4>Radius</h4>
+        <select style="font-size:12px;width:100%;">
+          <option>10 miles</option><option selected>25 miles</option><option>50 miles</option><option>Nationwide</option>
+        </select>
+      </div>
+      <div style="background:#fffde7;border:1px solid #f5e27a;border-radius:3px;padding:10px;margin-top:6px;">
+        <div style="font-size:12px;font-weight:700;color:#7d6608;margin-bottom:4px;">Your basket</div>
+        <div class="text-xs text-muted" id="basket-mini">0 CVs</div>
+        <button class="btn btn-yellow btn-sm w-full" style="margin-top:6px;" onclick="App.go('basket')">View basket</button>
+      </div>
+      <div style="margin-top:8px;">
+        <button class="btn btn-outline btn-sm w-full" onclick="App.user?App.toast('Search saved'):App.openModal('modal-signin')">Save this search</button>
       </div>
     </div>
   </div>
 
-  <div class="results-layout">
-    <!-- Results -->
-    <div class="results-list" id="srch-list">
-      <div style="padding:60px 0;text-align:center;color:var(--text-3);">
-        <p style="font-size:42px;margin-bottom:12px;">🔍</p>
-        <p style="font-size:18px;font-weight:700;margin-bottom:6px;">Search for CVs</p>
-        <p>Enter keywords above to find the right person</p>
-      </div>
-    </div>
-
-    <!-- Filter panel -->
-    <div class="filter-panel">
-      <h3>Filter results</h3>
-
-      <div class="filter-group">
-        <span class="filter-label">Availability</span>
-        <label class="filter-opt"><input type="checkbox" checked/> Actively looking</label>
-        <label class="filter-opt"><input type="checkbox" checked/> Open to offers</label>
-      </div>
-
-      <div class="filter-group">
-        <span class="filter-label">Contract type</span>
-        <label class="filter-opt"><input type="checkbox" checked/> Permanent</label>
-        <label class="filter-opt"><input type="checkbox" checked/> Contract</label>
-        <label class="filter-opt"><input type="checkbox"/> Freelance / Self-employed</label>
-        <label class="filter-opt"><input type="checkbox"/> Temporary</label>
-      </div>
-
-      <div class="filter-group">
-        <span class="filter-label">Salary range</span>
-        <select style="font-size:13px;margin-bottom:6px;">
-          <option>Any salary</option>
-          <option>£20,000+</option><option>£30,000+</option>
-          <option>£40,000+</option><option>£50,000+</option>
-          <option>£60,000+</option><option>£80,000+</option>
-        </select>
-      </div>
-
-      <div class="filter-group">
-        <span class="filter-label">Search radius</span>
-        <select style="font-size:13px;">
-          <option>5 miles</option><option>10 miles</option>
-          <option selected>25 miles</option><option>50 miles</option>
-          <option>Nationwide</option>
-        </select>
-      </div>
-
-      <div class="filter-group">
-        <span class="filter-label">Sector</span>
-        <label class="filter-opt"><input type="checkbox" checked/> All sectors</label>
-        <label class="filter-opt"><input type="checkbox"/> Trades</label>
-        <label class="filter-opt"><input type="checkbox"/> IT &amp; Tech</label>
-        <label class="filter-opt"><input type="checkbox"/> Design &amp; Media</label>
-        <label class="filter-opt"><input type="checkbox"/> Healthcare</label>
-        <label class="filter-opt"><input type="checkbox"/> Hospitality</label>
-      </div>
-
-      <div style="background:var(--amber-light);border:1px solid #ffcc80;border-radius:8px;padding:14px;margin-top:8px;">
-        <p style="font-size:12px;font-weight:800;color:var(--amber);margin-bottom:6px;">🛒 Your basket</p>
-        <p class="text-xs text-muted" id="basket-mini-count">0 CVs added</p>
-        <button class="btn btn-yellow btn-sm w-full mt-1" onclick="App.go('basket')">View basket</button>
-      </div>
-
-      <div style="margin-top:12px;">
-        <button class="btn btn-outline btn-sm w-full" onclick="App.user?App.toast('Search saved!'):App.openModal('modal-signin')">🔖 Save this search</button>
-      </div>
-    </div>
-  </div>
-
-  <footer class="footer">
-    <div class="footer-inner">
-      <div class="footer-bottom" style="padding-top:0;border:none;">
-        <p>© 2025 SeeCv Ltd</p>
-        <div style="display:flex;gap:20px;">
-          <a onclick="App.go('home')" style="color:rgba(255,255,255,.6);font-size:12px;">Home</a>
-          <a onclick="App.go('about')" style="color:rgba(255,255,255,.6);font-size:12px;">About</a>
-          <a style="color:rgba(255,255,255,.6);font-size:12px;">Privacy</a>
-          <a onclick="App.go('help')" style="color:rgba(255,255,255,.6);font-size:12px;">Help</a>
-        </div>
-      </div>
-    </div>
+  <footer class="footer cloud-bg">
+    <a onclick="App.go('home')">Home</a><a onclick="App.go('about')">About</a><a>Privacy</a><a onclick="App.go('help')">Help</a>
+    <span style="margin-left:auto;">© 2025 SeeCv Ltd</span>
   </footer>
 </div>
 
-<!-- ══════════════════════ PAGE: CANDIDATE PROFILE ══════════════════════ -->
+<!-- ══ PAGE: CANDIDATE PROFILE ══════════════════════════ -->
 <div id="page-profile" class="page">
-
-  <!-- Profile sub-nav -->
-  <div style="background:#fff;border-bottom:1px solid var(--border);padding:10px 0;">
-    <div class="container" style="display:flex;justify-content:space-between;align-items:center;">
-      <div style="display:flex;align-items:center;gap:16px;">
-        <a onclick="App.go('search')" style="font-size:13px;font-weight:700;color:var(--blue);">← Back to results</a>
-        <span style="color:var(--border);">|</span>
-        <span style="font-size:12px;color:var(--text-3);" id="prof-breadcrumb">Candidate profile</span>
-      </div>
-      <div style="display:flex;gap:8px;">
-        <button class="btn btn-outline btn-sm" onclick="App.addToBasket(App.currentCandidate?.id)">🛒 Add to basket</button>
-        <button class="btn btn-yellow btn-sm" onclick="App.buyNow(App.currentCandidate?.id)">⚡ Buy contact — £1</button>
-        <button class="btn btn-outline btn-sm" onclick="App.toast('Profile link copied to clipboard!')">Share</button>
-      </div>
+  <div class="profile-subnav cloud-bg">
+    <div style="display:flex;align-items:center;gap:14px;">
+      <a onclick="App.go('search')" style="font-size:13px;">← Back to results</a>
+      <span style="color:var(--border);">|</span>
+      <span class="text-xs text-muted">Candidate profile</span>
+    </div>
+    <div style="display:flex;gap:8px;">
+      <button class="btn btn-outline btn-sm" onclick="App.addToBasket(App.currentCandidate?.id, null)">Add to basket</button>
+      <button class="btn btn-yellow btn-sm" onclick="App.buyNow(App.currentCandidate?.id)">Buy contact details — £1</button>
+      <button class="btn btn-outline btn-sm" onclick="App.toast('Share link copied!')">Share profile</button>
+      <button class="btn btn-outline btn-sm" onclick="App.toast('PDF download available after purchase')">Download PDF</button>
     </div>
   </div>
 
-  <div class="profile-layout">
-    <!-- Left panel -->
-    <div class="profile-left">
-      <div style="text-align:center;margin-bottom:20px;">
-        <div class="avatar av-xl" id="prof-avatar-bg" style="margin:0 auto 14px;background:#1565c0;"><span id="prof-initials">JP</span></div>
-        <h2 style="font-size:17px;font-weight:900;" id="prof-name">Name</h2>
-        <p class="text-sm text-muted" style="margin:4px 0;" id="prof-location">Location</p>
-        <span class="badge badge-green" id="prof-status" style="margin-top:6px;">Actively looking</span>
+  <div class="profile-wrap">
+    <!-- Left col -->
+    <div class="profile-left-col">
+      <div style="text-align:center;margin-bottom:14px;">
+        <div class="avatar av-xl" id="prof-av" style="margin:0 auto 10px;"><span id="prof-initials">JP</span></div>
+        <div style="font-size:14px;font-weight:700;" id="prof-name">Name</div>
+        <div class="text-xs text-muted mt-1" id="prof-location"></div>
+        <span class="badge badge-green mt-1" id="prof-status" style="display:inline-block;margin-top:5px;"></span>
       </div>
-
-      <div style="background:var(--bg);border-radius:8px;padding:12px;margin-bottom:16px;">
-        <div class="flex-between mb-1">
-          <span style="font-size:12px;font-weight:700;color:var(--text-2);">Profile</span>
-          <span style="font-size:12px;font-weight:700;color:var(--blue);" id="prof-pct">85%</span>
-        </div>
-        <div class="progress progress-sm"><div class="progress-bar" id="prof-progress" style="width:85%;"></div></div>
+      <div style="margin-bottom:12px;">
+        <div class="flex-between mb-1"><span class="text-xs text-muted">Profile complete</span><span class="text-xs" style="color:var(--blue);" id="prof-pct">85%</span></div>
+        <div class="prog-wrap"><div class="prog-bar" id="prof-prog" style="width:85%;"></div></div>
       </div>
-
-      <div style="border-top:1px solid var(--border);padding-top:14px;margin-bottom:16px;">
-        <p style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--text-3);margin-bottom:8px;">Key details</p>
-        <div style="display:flex;flex-direction:column;gap:6px;font-size:13px;">
-          <span id="prof-notice">Notice: 1 week</span>
-          <span id="prof-salary">Salary: £38k+</span>
-          <span id="prof-type">Type: Permanent</span>
+      <div style="font-size:11px;font-weight:700;color:var(--text-muted);margin-bottom:6px;text-transform:uppercase;">Key details</div>
+      <div class="text-xs text-muted mb-1">Notice: <span class="bold" id="prof-notice"></span></div>
+      <div class="text-xs text-muted mb-1">Salary: <span class="bold" id="prof-salary"></span></div>
+      <div class="text-xs text-muted mb-2">Type: <span class="bold" id="prof-type"></span></div>
+      <div style="border-top:1px solid var(--sky-dark);padding-top:10px;">
+        <div style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;margin-bottom:7px;">Photos</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;margin-bottom:10px;">
+          <div style="aspect-ratio:1;border-radius:3px;background:#1a6fb5;opacity:0.6;cursor:pointer;" onclick="App.toast('Buy CV to unlock full media')"></div>
+          <div style="aspect-ratio:1;border-radius:3px;background:#2a7a2a;opacity:0.6;cursor:pointer;" onclick="App.toast('Buy CV to unlock full media')"></div>
+          <div style="aspect-ratio:1;border-radius:3px;background:#6a1b9a;opacity:0.6;cursor:pointer;" onclick="App.toast('Buy CV to unlock full media')"></div>
         </div>
-      </div>
-
-      <div style="border-top:1px solid var(--border);padding-top:14px;margin-bottom:16px;">
-        <p style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--text-3);margin-bottom:8px;">Photos</p>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:5px;margin-bottom:12px;">
-          <div style="aspect-ratio:1;background:#1565c0;border-radius:6px;opacity:.65;cursor:pointer;" onclick="App.toast('Purchase CV to unlock full media')"></div>
-          <div style="aspect-ratio:1;background:#2e7d32;border-radius:6px;opacity:.65;cursor:pointer;" onclick="App.toast('Purchase CV to unlock full media')"></div>
-          <div style="aspect-ratio:1;background:#6a1b9a;border-radius:6px;opacity:.65;cursor:pointer;" onclick="App.toast('Purchase CV to unlock full media')"></div>
-        </div>
-        <p style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--text-3);margin-bottom:8px;">Video</p>
-        <div style="background:var(--bg);border:1px dashed var(--border);border-radius:8px;padding:14px;text-align:center;cursor:pointer;" onclick="App.buyNow(App.currentCandidate?.id)">
-          <div style="font-size:28px;margin-bottom:4px;">▶</div>
-          <p style="font-size:12px;font-weight:700;">30-sec pitch video</p>
-          <p style="font-size:11px;color:var(--text-3);">Unlock with purchase</p>
+        <div style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;margin-bottom:5px;">Video pitch</div>
+        <div style="background:#eee;border-radius:3px;padding:12px;text-align:center;cursor:pointer;" onclick="App.buyNow(App.currentCandidate?.id)">
+          <div style="font-size:22px;">▶</div>
+          <div style="font-size:11px;color:var(--text-muted);margin-top:2px;">30-sec pitch</div>
         </div>
       </div>
-
-      <div style="border-top:1px solid var(--border);padding-top:14px;">
-        <button class="btn btn-outline btn-sm w-full mb-1" onclick="App.saveCV(App.currentCandidate?.id)">🔖 Save CV</button>
-        <button class="btn btn-outline btn-sm w-full" onclick="App.toast('Download available after purchase')">⬇ Download PDF</button>
+      <div style="margin-top:12px;display:flex;flex-direction:column;gap:5px;">
+        <button class="btn btn-outline btn-sm" onclick="App.saveCV(App.currentCandidate?.id)">Save CV</button>
       </div>
     </div>
 
-    <!-- Right panel -->
-    <div class="profile-right">
-      <div class="tabs">
-        <button class="tab-btn active" data-tab="cv" onclick="App.switchProfileTab('cv')">CV Profile</button>
-        <button class="tab-btn" data-tab="media" onclick="App.switchProfileTab('media')">Media &amp; Gallery</button>
-        <button class="tab-btn" data-tab="message" onclick="App.switchProfileTab('message')">Message</button>
+    <!-- Right col -->
+    <div class="profile-right-col">
+      <div class="profile-tabs">
+        <button class="ptab active" data-tab="cv" onclick="App.switchProfileTab('cv')">CV Profile</button>
+        <button class="ptab" data-tab="media" onclick="App.switchProfileTab('media')">Media Page</button>
+        <button class="ptab" data-tab="cover" onclick="App.switchProfileTab('cover')">Cover Letter</button>
+        <button class="ptab" data-tab="message" onclick="App.switchProfileTab('message')">Message</button>
       </div>
 
       <!-- CV Tab -->
-      <div id="ptab-cv" class="tab-panel active">
-
-        <!-- Locked / unlocked contact -->
-        <div id="prof-unlocked-wrap" style="display:none;" class="contact-unlocked mb-3">
-          <p style="font-weight:800;color:var(--green);margin-bottom:10px;">✓ Contact details unlocked</p>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
-            <div><p style="font-size:11px;font-weight:700;color:var(--text-3);text-transform:uppercase;margin-bottom:2px;">Phone</p><p class="bold text-sm" id="prof-phone-val"></p></div>
-            <div><p style="font-size:11px;font-weight:700;color:var(--text-3);text-transform:uppercase;margin-bottom:2px;">Email</p><p class="bold text-sm" id="prof-email-val"></p></div>
+      <div id="ptab-cv" class="ptab-panel active">
+        <!-- Unlocked -->
+        <div id="prof-unlocked-section" style="display:none;" class="notif-bar success mb-2">
+          Contact details unlocked —
+          <strong id="prof-phone"></strong> &nbsp;|&nbsp;
+          <strong id="prof-email"></strong>
+          <button class="btn btn-outline btn-sm" style="margin-left:10px;" onclick="App.switchProfileTab('message');document.querySelector('[data-tab=message]').classList.add('active')">Message now</button>
+        </div>
+        <!-- Buy -->
+        <div id="prof-buy-section" class="card" style="background:#fffde7;border-color:#f5e27a;margin-bottom:16px;">
+          <div style="font-size:13px;font-weight:700;margin-bottom:6px;">Contact details are hidden</div>
+          <div class="text-sm text-muted mb-2">Purchase this CV for £1 to unlock the phone number, email and direct messaging.</div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn btn-yellow btn-sm" onclick="App.buyNow(App.currentCandidate?.id)">Buy contact details — £1</button>
+            <button class="btn btn-outline btn-sm" onclick="App.addToBasket(App.currentCandidate?.id, null)">Add to basket</button>
           </div>
-          <button class="btn btn-blue btn-sm mt-2" onclick="App.switchProfileTab('message');document.querySelector('[data-tab=message]').classList.add('active')">Send message</button>
+          <div class="text-xs text-muted mt-1">Money-back guarantee · Secure checkout</div>
         </div>
 
-        <div class="profile-section">
+        <div class="cv-section">
           <h3>Personal Profile</h3>
-          <p class="text-sm" style="line-height:1.75;" id="prof-profile"></p>
+          <p class="text-sm" id="prof-profile-text"></p>
         </div>
-        <div class="profile-section">
+        <div class="cv-section">
           <h3>Key Skills</h3>
-          <div id="prof-skills"></div>
+          <div id="prof-skills" style="display:flex;flex-wrap:wrap;gap:4px;"></div>
         </div>
-        <div class="profile-section">
+        <div class="cv-section">
           <h3>Experience</h3>
           <div id="prof-experience"></div>
         </div>
-        <div class="profile-section">
+        <div class="cv-section">
           <h3>Qualifications</h3>
           <p class="text-sm" id="prof-quals"></p>
         </div>
-        <div class="profile-section">
+        <div class="cv-section">
           <h3>Hobbies &amp; Interests</h3>
           <p class="text-sm" id="prof-hobbies"></p>
         </div>
-        <div class="profile-section">
-          <h3>Ideal Job &amp; Future Goals</h3>
+        <div class="cv-section">
+          <h3>Ideal Job &amp; Goals</h3>
           <p class="text-sm" id="prof-ideal"></p>
-        </div>
-
-        <div id="prof-buy-wrap">
-          <div class="contact-locked">
-            <p style="font-weight:800;color:var(--amber);margin-bottom:8px;">🔒 Contact details hidden</p>
-            <p class="text-sm text-muted mb-2">Purchase this CV for just £1 to unlock the phone number, email address and direct messaging.</p>
-            <div style="display:flex;gap:10px;flex-wrap:wrap;">
-              <button class="btn btn-yellow" onclick="App.buyNow(App.currentCandidate?.id)">⚡ Unlock contact — £1</button>
-              <button class="btn btn-outline btn-sm" onclick="App.addToBasket(App.currentCandidate?.id)">Add to basket</button>
-            </div>
-            <p class="text-xs text-muted" style="margin-top:8px;">✓ Money-back guarantee &nbsp;·&nbsp; ✓ Secure checkout</p>
-          </div>
         </div>
       </div>
 
       <!-- Media Tab -->
-      <div id="ptab-media" class="tab-panel">
-        <h3 class="section-title">Photos</h3>
-        <div class="media-gallery mb-3">
-          <div class="media-thumb" onclick="App.toast('Purchase CV to view full resolution images')">
-            <div class="media-thumb-inner" style="background:#1565c0;color:#fff;font-size:13px;">📸 Work photo</div>
-          </div>
-          <div class="media-thumb" onclick="App.toast('Purchase CV to view full resolution images')">
-            <div class="media-thumb-inner" style="background:#2e7d32;color:#fff;font-size:13px;">📸 On site</div>
-          </div>
-          <div class="media-thumb" onclick="App.toast('Purchase CV to view full resolution images')">
-            <div class="media-thumb-inner" style="background:#6a1b9a;color:#fff;font-size:13px;">📸 Portfolio</div>
-          </div>
-          <div class="media-thumb" onclick="App.buyNow(App.currentCandidate?.id)" style="border:2px dashed var(--border);">
-            <div class="media-thumb-inner" style="color:var(--text-3);font-size:13px;flex-direction:column;gap:4px;"><span style="font-size:24px;">🔒</span>+4 more</div>
+      <div id="ptab-media" class="ptab-panel">
+        <div class="cv-section">
+          <h3>Photos</h3>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px;">
+            <div style="aspect-ratio:1;background:#1a6fb5;border-radius:3px;opacity:.65;cursor:pointer;" onclick="App.toast('Purchase CV to view full images')"></div>
+            <div style="aspect-ratio:1;background:#2a7a2a;border-radius:3px;opacity:.65;cursor:pointer;" onclick="App.toast('Purchase CV to view full images')"></div>
+            <div style="aspect-ratio:1;background:#6a1b9a;border-radius:3px;opacity:.65;cursor:pointer;" onclick="App.toast('Purchase CV to view full images')"></div>
+            <div style="aspect-ratio:1;border:1px dashed var(--border);border-radius:3px;display:flex;align-items:center;justify-content:center;color:var(--text-muted);font-size:11px;">+3 more</div>
           </div>
         </div>
-        <h3 class="section-title">Video</h3>
-        <div class="media-video-card" onclick="App.buyNow(App.currentCandidate?.id)" style="cursor:pointer;">
-          <div style="font-size:52px;margin-bottom:10px;">🎬</div>
-          <p style="font-weight:800;font-size:16px;margin-bottom:6px;">30-Second Pitch Video</p>
-          <p class="text-sm text-muted mb-3">This candidate has recorded a 30-second introduction video. Purchase the CV to watch it.</p>
-          <button class="btn btn-yellow">Unlock video — £1</button>
+        <div class="cv-section">
+          <h3>30-Second Pitch Video</h3>
+          <div style="background:#f0f0f0;border-radius:3px;padding:32px;text-align:center;cursor:pointer;" onclick="App.buyNow(App.currentCandidate?.id)">
+            <div style="font-size:40px;margin-bottom:8px;">▶</div>
+            <div style="font-size:13px;font-weight:700;margin-bottom:4px;">Pitch video available</div>
+            <div class="text-xs text-muted">Purchase CV to unlock</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cover Letter Tab -->
+      <div id="ptab-cover" class="ptab-panel">
+        <div class="cv-section">
+          <h3>Cover Letter</h3>
+          <div style="background:#fffde7;border:1px solid #f5e27a;border-radius:3px;padding:14px;font-size:13px;color:var(--text-mid);">
+            <p>Purchase this CV to read the candidate's cover letter and personal statement.</p>
+            <button class="btn btn-yellow btn-sm mt-2" onclick="App.buyNow(App.currentCandidate?.id)">Unlock — £1</button>
+          </div>
         </div>
       </div>
 
       <!-- Message Tab -->
-      <div id="ptab-message" class="tab-panel">
-        <div class="msg-list" id="prof-thread">
-          <div style="text-align:center;margin:auto;color:var(--text-3);">
-            <p style="font-size:32px;margin-bottom:8px;">💬</p>
-            <p style="font-weight:700;">Purchase this CV to start messaging</p>
-            <p class="text-sm">Messages are delivered to the candidate's email and SeeCv account.</p>
-            <button class="btn btn-yellow btn-sm mt-2" onclick="App.buyNow(App.currentCandidate?.id)">Unlock messaging — £1</button>
+      <div id="ptab-message" class="ptab-panel">
+        <div class="cv-section">
+          <h3>Send a message</h3>
+          <div class="msg-thread" id="prof-thread">
+            <div style="color:var(--text-muted);font-size:13px;margin:auto;text-align:center;">Purchase CV to start messaging</div>
           </div>
+          <div class="msg-row">
+            <input type="text" id="prof-msg" placeholder="Type a message..."/>
+            <button class="btn btn-blue btn-sm" onclick="App.sendMsg('prof-msg','prof-thread')">Send</button>
+          </div>
+          <div class="text-xs text-muted mt-1">Messages are delivered to the candidate's email and SeeCv account.</div>
         </div>
-        <div class="msg-input-row">
-          <input type="text" id="prof-msg-inp" placeholder="Type your message..."/>
-          <button class="btn btn-blue" onclick="App.sendMessage('prof-msg-inp','prof-thread')">Send</button>
-        </div>
-        <p class="text-xs text-muted mt-1">Messages are only available after purchasing this CV</p>
       </div>
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════ PAGE: BASKET ══════════════════════ -->
-<div id="page-basket" class="page" style="background:var(--bg);min-height:100vh;padding-bottom:48px;">
-  <div class="basket-page">
-    <div class="checkout-flow">
-      <span class="checkout-step active">1. Basket</span>
-      <span class="checkout-arrow">→</span>
-      <span class="checkout-step">2. Billing details</span>
-      <span class="checkout-arrow">→</span>
-      <span class="checkout-step">3. Confirm &amp; pay</span>
-      <span class="checkout-arrow">→</span>
-      <span class="checkout-step">4. Done</span>
+<!-- ══ PAGE: BASKET ══════════════════════════════════════ -->
+<div id="page-basket" class="page" style="background:var(--sky);min-height:100vh;" >
+  <div class="basket-wrap">
+    <div class="checkout-steps">
+      <span class="cstep active">Basket</span><span class="cstep-arrow">→</span>
+      <span class="cstep">Billing address</span><span class="cstep-arrow">→</span>
+      <span class="cstep">Confirm and buy</span><span class="cstep-arrow">→</span>
+      <span class="cstep">Thank you</span>
     </div>
 
-    <div style="display:grid;grid-template-columns:1fr 340px;gap:24px;align-items:start;">
+    <div style="display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start;">
       <div>
         <div class="card mb-2">
-          <h2 style="font-size:18px;font-weight:900;margin-bottom:16px;">Your basket</h2>
+          <div style="font-size:16px;font-weight:700;margin-bottom:14px;">Basket</div>
           <div id="basket-list"></div>
         </div>
 
+        <div class="card mb-2">
+          <div style="font-size:14px;font-weight:700;margin-bottom:10px;">Buy credits in bulk and save</div>
+          <div class="text-xs text-muted mb-2">Credits never expire. Use them any time.</div>
+          <div class="credit-row sel" onclick="selectCredit(this)"><input type="radio" name="cp" checked/><div style="flex:1;"><div class="bold text-sm">10 CVs</div><div class="text-xs text-muted">£3.00 each</div></div><div style="font-weight:700;color:var(--blue);">£30</div></div>
+          <div class="credit-row" onclick="selectCredit(this)"><input type="radio" name="cp"/><div style="flex:1;"><div class="bold text-sm">25 CVs</div><div class="text-xs text-muted">£2.00 each — save 33%</div></div><div style="font-weight:700;color:var(--blue);">£50</div></div>
+          <div class="credit-row" onclick="selectCredit(this)"><input type="radio" name="cp"/><div style="flex:1;"><div class="bold text-sm">50 CVs</div><div class="text-xs text-muted">£1.60 each — save 47%</div></div><div style="font-weight:700;color:var(--blue);">£80</div></div>
+          <div class="credit-row" onclick="selectCredit(this)"><input type="radio" name="cp"/><div style="flex:1;"><div class="bold text-sm">100 CVs</div><div class="text-xs text-muted">£1.30 each — save 57%</div></div><div style="font-weight:700;color:var(--blue);">£130</div></div>
+        </div>
+
+        <!-- Share basket -->
         <div class="card">
-          <h2 style="font-size:18px;font-weight:900;margin-bottom:6px;">Buy credits</h2>
-          <p class="text-sm text-muted mb-3">Credits never expire. Buy in bulk for better value.</p>
-          <div class="credit-pack selected" onclick="selectPack(this)">
-            <input type="radio" name="pack" checked/>
-            <div class="credit-info"><div class="credit-name">10 CVs</div><div class="credit-per">£3.00 per CV contact</div></div>
-            <div class="credit-price">£30</div>
-          </div>
-          <div class="credit-pack" onclick="selectPack(this)">
-            <input type="radio" name="pack"/>
-            <div class="credit-info"><div class="credit-name">25 CVs</div><div class="credit-per">£2.00 per CV contact — save 33%</div></div>
-            <div class="credit-price">£50</div>
-          </div>
-          <div class="credit-pack" onclick="selectPack(this)">
-            <input type="radio" name="pack"/>
-            <div class="credit-info"><div class="credit-name">50 CVs</div><div class="credit-per">£1.60 per CV contact — save 47%</div></div>
-            <div class="credit-price">£80</div>
-          </div>
-          <div class="credit-pack" onclick="selectPack(this)">
-            <input type="radio" name="pack"/>
-            <div class="credit-info"><div class="credit-name">100 CVs</div><div class="credit-per">£1.30 per CV contact — save 57%</div></div>
-            <div class="credit-price">£130</div>
+          <div style="font-size:13px;font-weight:700;margin-bottom:6px;">Share this basket</div>
+          <div class="text-xs text-muted mb-2">Send your shortlisted CVs to a colleague for review before purchasing.</div>
+          <button class="btn btn-outline btn-sm" onclick="App.shareBasket()">Generate share link</button>
+          <div id="share-basket-box" class="share-basket-box" style="display:none;margin-top:10px;">
+            <div class="text-xs text-muted mb-1">Share this link — recipients can view the shortlisted CVs (contact details remain hidden):</div>
+            <div style="display:flex;gap:6px;">
+              <input type="text" id="share-basket-url" readonly style="flex:1;font-size:11px;background:#fff8e1;"/>
+              <button class="btn btn-yellow btn-sm" onclick="App.copyShareLink()">Copy</button>
+            </div>
           </div>
         </div>
       </div>
 
-      <!-- Order summary -->
-      <div>
-        <div class="card" style="position:sticky;top:calc(var(--nav-h) + 16px);">
-          <h3 style="font-weight:800;margin-bottom:14px;">Order summary</h3>
-          <div class="flex-between text-sm mb-1"><span>CVs in basket</span><span id="basket-total-cvs" class="bold">0 CVs</span></div>
-          <div class="flex-between text-sm mb-1"><span>Credit pack</span><span class="bold">10 credits</span></div>
-          <div class="divider" style="margin:10px 0;"></div>
-          <div class="flex-between mb-2"><span style="font-size:16px;font-weight:800;">Total</span><span style="font-size:22px;font-weight:900;color:var(--blue);">£30</span></div>
-          <button class="btn btn-yellow btn-lg w-full mb-2" onclick="App.completePurchase()">Continue to checkout →</button>
-          <p class="text-xs text-muted text-center mb-1">✓ Secure checkout (Stripe / PayPal)</p>
-          <p class="text-xs text-muted text-center">✓ Money-back guarantee</p>
-          <div style="border-top:1px solid var(--border);padding-top:12px;margin-top:12px;display:flex;justify-content:center;gap:10px;">
-            <span style="font-size:20px;" title="Visa">💳</span>
-            <span style="font-size:20px;" title="Mastercard">💳</span>
-            <span style="font-size:20px;" title="PayPal">🅿</span>
-          </div>
+      <div class="card" style="position:sticky;top:calc(var(--nav-h)+16px);">
+        <div style="font-size:14px;font-weight:700;margin-bottom:12px;">Order summary</div>
+        <div class="flex-between text-sm mb-1"><span>CVs in basket</span><span class="bold" id="basket-total">0 CVs</span></div>
+        <div class="flex-between text-sm mb-2"><span>Credit pack</span><span class="bold">10 credits</span></div>
+        <div style="border-top:1px solid var(--border);padding-top:10px;margin-bottom:12px;">
+          <div class="flex-between"><span style="font-size:15px;font-weight:700;">Total</span><span style="font-size:20px;font-weight:700;color:var(--blue);">£30</span></div>
         </div>
-        <p style="text-align:center;margin-top:10px;"><a onclick="App.go('search')" style="font-size:13px;">← Continue searching</a></p>
+        <button class="btn btn-yellow btn-lg w-full mb-1" onclick="App.completePurchase()">Continue →</button>
+        <div class="text-xs text-muted text-center">Visa · Mastercard · PayPal</div>
+        <div class="text-xs text-muted text-center mt-1">Money-back guarantee</div>
       </div>
     </div>
+
+    <div class="mt-2"><a onclick="App.go('search')" class="text-sm">← Continue searching</a></div>
   </div>
 </div>
 
-<!-- ══════════════════════ PAGE: RECRUITER ACCOUNT ══════════════════════ -->
+<!-- ══ PAGE: RECRUITER ACCOUNT ════════════════════════════ -->
 <div id="page-recruiter" class="page">
-  <div class="app-layout">
-    <div class="sidebar">
-      <div class="sidebar-user">
+  <div class="dash-layout">
+    <div class="dash-sidebar cloud-bg">
+      <div class="dash-user">
         <div class="avatar av-sm" id="rec-av">AT</div>
         <div>
-          <p style="font-size:13px;font-weight:800;" id="rec-name">Recruiter</p>
-          <p class="text-xs text-muted" id="rec-email">recruiter@email.com</p>
+          <div style="font-size:12px;font-weight:700;" id="rec-name-disp">Recruiter</div>
+          <div class="text-xs text-muted" id="rec-email-disp">email</div>
         </div>
       </div>
-      <div class="sidebar-section">Account</div>
-      <a class="sidebar-item active rec-tab-btn" data-tab="overview" onclick="App.switchRecTab('overview')"><span class="icon">📊</span> Overview</a>
-      <a class="sidebar-item rec-tab-btn" data-tab="bought" onclick="App.switchRecTab('bought')"><span class="icon">📄</span> Purchased CVs</a>
-      <a class="sidebar-item rec-tab-btn" data-tab="saved" onclick="App.switchRecTab('saved')"><span class="icon">🔖</span> Saved CVs</a>
-      <a class="sidebar-item rec-tab-btn" data-tab="searches" onclick="App.switchRecTab('searches')"><span class="icon">🔍</span> Saved searches</a>
-      <a class="sidebar-item rec-tab-btn" data-tab="messages" onclick="App.switchRecTab('messages')"><span class="icon">💬</span> Messages</a>
-      <div class="sidebar-section">Settings</div>
-      <a class="sidebar-item rec-tab-btn" data-tab="account" onclick="App.switchRecTab('account')"><span class="icon">⚙</span> Account settings</a>
-      <div class="divider"></div>
-      <a class="sidebar-item" onclick="App.go('search')"><span class="icon">🔍</span> Search CVs</a>
-      <a class="sidebar-item" onclick="App.go('basket')"><span class="icon">🛒</span> Buy credits</a>
+      <a class="dash-item active rec-tab-btn" data-tab="overview" onclick="App.switchRecTab('overview')">Overview</a>
+      <a class="dash-item rec-tab-btn" data-tab="bought" onclick="App.switchRecTab('bought')">Purchased CVs</a>
+      <a class="dash-item rec-tab-btn" data-tab="saved" onclick="App.switchRecTab('saved')">Saved CVs</a>
+      <a class="dash-item rec-tab-btn" data-tab="searches" onclick="App.switchRecTab('searches')">Saved searches</a>
+      <a class="dash-item rec-tab-btn" data-tab="messages" onclick="App.switchRecTab('messages')">Messages</a>
+      <div class="dash-item-sep"></div>
+      <a class="dash-item rec-tab-btn" data-tab="profile" onclick="App.switchRecTab('profile')">My profile</a>
+      <a class="dash-item rec-tab-btn" data-tab="account" onclick="App.switchRecTab('account')">Account settings</a>
+      <div class="dash-item-sep"></div>
+      <a class="dash-item" onclick="App.go('search')">Search CVs</a>
+      <a class="dash-item" onclick="App.go('basket')">Buy credits</a>
+      <a class="dash-item" onclick="App.go('jobboard')">Post a job</a>
     </div>
 
-    <div class="main-panel">
+    <div class="dash-main">
 
-      <!-- OVERVIEW -->
       <div id="rec-panel-overview" class="rec-panel">
-        <div class="flex-between mb-3">
-          <h1 style="font-size:22px;font-weight:900;">Account overview</h1>
-          <button class="btn btn-blue btn-sm" onclick="App.go('search')">Search CVs →</button>
+        <div class="flex-between mb-3"><div style="font-size:18px;font-weight:700;">Account overview</div><button class="btn btn-yellow btn-sm" onclick="App.go('search')">Search CVs</button></div>
+        <div class="stats-grid">
+          <div class="stat-box"><div class="stat-num" id="rstat-credits">0</div><div class="stat-lbl">Credits remaining</div></div>
+          <div class="stat-box"><div class="stat-num" id="rstat-bought">0</div><div class="stat-lbl">CVs purchased</div></div>
+          <div class="stat-box"><div class="stat-num" id="rstat-saved">0</div><div class="stat-lbl">CVs saved</div></div>
+          <div class="stat-box"><div class="stat-num" id="rstat-searches">0</div><div class="stat-lbl">Saved searches</div></div>
         </div>
-        <div class="stats-row">
-          <div class="stat-box"><div class="stat-num" id="rstat-credits">0</div><div class="stat-label">Credits remaining</div></div>
-          <div class="stat-box"><div class="stat-num" id="rstat-bought">0</div><div class="stat-label">CVs purchased</div></div>
-          <div class="stat-box"><div class="stat-num" id="rstat-saved">0</div><div class="stat-label">CVs saved</div></div>
-          <div class="stat-box"><div class="stat-num" id="rstat-searches">0</div><div class="stat-label">Saved searches</div></div>
-        </div>
-        <div class="notif notif-info mb-2">💡 <span><strong>Tip:</strong> Search is always 100% free. Only pay when you find a CV you want to contact — from just £1.</span></div>
-
-        <h2 class="section-title">Saved searches</h2>
+        <div class="notif-bar mb-2">Tip: Searching is always free. Only pay £1 when you find a CV you want to contact.</div>
+        <div style="font-size:14px;font-weight:700;margin-bottom:10px;">Saved searches</div>
         <div id="rec-searches-list" class="mb-3"></div>
-
-        <h2 class="section-title">Saved CVs</h2>
-        <div id="rec-saved-list" class="mb-3"></div>
-
-        <h2 class="section-title">Recent notifications</h2>
-        <div class="notif notif-success">✓ <span>New CV matching your search "plumber Manchester" — <a onclick="App.go('search')">View now</a></span></div>
+        <div style="font-size:14px;font-weight:700;margin-bottom:10px;">Saved CVs</div>
+        <div id="rec-saved-list"></div>
       </div>
 
-      <!-- PURCHASED CVs -->
       <div id="rec-panel-bought" class="rec-panel" style="display:none;">
-        <h1 style="font-size:22px;font-weight:900;margin-bottom:6px;">Purchased CVs</h1>
-        <p class="text-muted text-sm mb-3">You have full contact access to these candidates.</p>
+        <div style="font-size:18px;font-weight:700;margin-bottom:6px;">Purchased CVs</div>
+        <div class="text-muted text-sm mb-2">You have full contact access to these candidates.</div>
         <div id="rec-bought-list"></div>
       </div>
 
-      <!-- SAVED CVs -->
       <div id="rec-panel-saved" class="rec-panel" style="display:none;">
-        <h1 style="font-size:22px;font-weight:900;margin-bottom:6px;">Saved CVs</h1>
-        <p class="text-muted text-sm mb-3">Shortlisted candidates. Purchase to unlock contact details.</p>
+        <div style="font-size:18px;font-weight:700;margin-bottom:6px;">Saved CVs</div>
+        <div class="text-muted text-sm mb-2">Shortlisted candidates. Purchase to unlock contact details.</div>
         <div id="rec-saved-list-2"></div>
       </div>
 
-      <!-- SAVED SEARCHES -->
       <div id="rec-panel-searches" class="rec-panel" style="display:none;">
-        <div class="flex-between mb-3">
-          <h1 style="font-size:22px;font-weight:900;">Saved searches &amp; alerts</h1>
-          <button class="btn btn-blue btn-sm" onclick="App.go('search')">New search</button>
-        </div>
+        <div style="font-size:18px;font-weight:700;margin-bottom:14px;">Saved searches &amp; alerts</div>
         <div id="rec-searches-list-2"></div>
-        <div class="notif notif-info mt-2">💡 <span>Set email alerts on any saved search to be notified when new matching CVs are added.</span></div>
+        <button class="btn btn-outline btn-sm mt-2" onclick="App.go('search')">New search</button>
       </div>
 
-      <!-- MESSAGES -->
       <div id="rec-panel-messages" class="rec-panel" style="display:none;">
-        <h1 style="font-size:22px;font-weight:900;margin-bottom:20px;">Messages</h1>
-        <div style="display:grid;grid-template-columns:220px 1fr;gap:0;border:1px solid var(--border);border-radius:10px;overflow:hidden;min-height:400px;">
-          <div style="background:var(--bg);border-right:1px solid var(--border);padding:12px;">
-            <p style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--text-3);margin-bottom:10px;">Conversations</p>
-            <div style="background:#fff;border:1px solid var(--border);border-radius:8px;padding:10px;cursor:pointer;margin-bottom:6px;">
-              <p style="font-size:13px;font-weight:700;">James Patterson</p>
-              <p class="text-xs text-muted">Can I arrange a quick call?</p>
-              <p class="text-xs text-muted" style="margin-top:2px;">12 hrs ago</p>
+        <div style="font-size:18px;font-weight:700;margin-bottom:14px;">Messages</div>
+        <div style="display:grid;grid-template-columns:180px 1fr;gap:0;border:1px solid var(--border);border-radius:3px;overflow:hidden;min-height:340px;">
+          <div style="background:#f9f9f9;border-right:1px solid var(--border);padding:10px;">
+            <div style="font-size:11px;font-weight:700;color:var(--text-muted);text-transform:uppercase;margin-bottom:8px;">Conversations</div>
+            <div style="padding:8px;background:#fff;border:1px solid var(--border);border-radius:2px;cursor:pointer;margin-bottom:4px;">
+              <div class="bold text-sm">James Patterson</div>
+              <div class="text-xs text-muted">Can I arrange a call?</div>
             </div>
           </div>
-          <div style="display:flex;flex-direction:column;padding:16px;">
-            <div style="flex:1;display:flex;flex-direction:column;">
-              <p style="font-size:13px;font-weight:700;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border);">💬 James Patterson — Gas Engineer</p>
-              <div class="msg-list" id="rec-thread" style="flex:1;">
-                <div><div class="msg-bubble me">Hi James, we have a great opportunity for a Gas Safe engineer in Trafford. Permanent role, £40k. Would you be interested?</div><div class="msg-time right">You · 2 days ago</div></div>
-                <div><div class="msg-bubble them">Thanks for reaching out! I'd love to hear more. What's the start date and salary range?</div><div class="msg-time">James · 1 day ago</div></div>
-                <div><div class="msg-bubble me">Offering £40k–£44k depending on experience. Start ASAP. Can I arrange a quick call?</div><div class="msg-time right">You · 12 hrs ago</div></div>
-              </div>
+          <div style="display:flex;flex-direction:column;padding:14px;">
+            <div style="font-size:13px;font-weight:700;padding-bottom:10px;border-bottom:1px solid var(--border);margin-bottom:10px;">James Patterson — Gas Engineer</div>
+            <div class="msg-thread" id="rec-thread" style="flex:1;">
+              <div><div class="msg-me">Hi James — we have a great Gas Safe role in Trafford, £40k permanent. Interested?</div><div class="msg-time r">You · 2 days ago</div></div>
+              <div><div class="msg-them">Thanks for reaching out! Yes I'd love to hear more. What's the start date?</div><div class="msg-time">James · 1 day ago</div></div>
             </div>
-            <div class="msg-input-row mt-2">
-              <input type="text" id="rec-msg-inp" placeholder="Type a message..."/>
-              <button class="btn btn-blue" onclick="App.sendMessage('rec-msg-inp','rec-thread')">Send</button>
+            <div class="msg-row mt-1">
+              <input type="text" id="rec-msg" placeholder="Type a message..."/>
+              <button class="btn btn-blue btn-sm" onclick="App.sendMsg('rec-msg','rec-thread')">Send</button>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- ACCOUNT SETTINGS -->
+      <div id="rec-panel-profile" class="rec-panel" style="display:none;">
+        <div style="font-size:18px;font-weight:700;margin-bottom:16px;">My recruiter profile</div>
+        <div class="card mb-2" style="max-width:600px;">
+          <div class="text-sm text-muted mb-2">Your public profile shown to candidates when you message them.</div>
+          <div class="form-row mb-2">
+            <div class="form-group"><label>First name</label><input type="text" id="acc-fn"/></div>
+            <div class="form-group"><label>Last name</label><input type="text" id="acc-ln"/></div>
+          </div>
+          <div class="form-group"><label>Company name</label><input type="text" placeholder="Your company"/></div>
+          <div class="form-group"><label>Job title</label><input type="text" placeholder="e.g. Talent Manager"/></div>
+          <div class="form-group"><label>About your company</label><textarea placeholder="Brief description of what your company does..."></textarea></div>
+          <div class="form-group"><label>Website</label><input type="text" placeholder="https://"/></div>
+          <button class="btn btn-yellow btn-sm" onclick="App.toast('Profile saved')">Save profile</button>
+        </div>
+      </div>
+
       <div id="rec-panel-account" class="rec-panel" style="display:none;">
-        <h1 style="font-size:22px;font-weight:900;margin-bottom:24px;">Account settings</h1>
-
-        <div class="card mb-3">
-          <h2 style="font-size:16px;font-weight:800;margin-bottom:16px;">Personal details</h2>
-          <div class="form-row">
-            <div class="form-group"><label>First name</label><input type="text" id="acc-firstname"/></div>
-            <div class="form-group"><label>Last name</label><input type="text" id="acc-lastname"/></div>
-          </div>
-          <div class="form-row">
-            <div class="form-group"><label>Email address</label><input type="email" id="acc-email-field"/></div>
-            <div class="form-group"><label>Company name</label><input type="text" placeholder="Your company"/></div>
-          </div>
-          <div class="form-row">
-            <div class="form-group"><label>Phone</label><input type="tel" placeholder="+44"/></div>
-            <div class="form-group"><label>Job title</label><input type="text" placeholder="e.g. Talent Acquisition Manager"/></div>
-          </div>
-          <button class="btn btn-blue" onclick="App.toast('✓ Changes saved successfully')">Save changes</button>
+        <div style="font-size:18px;font-weight:700;margin-bottom:16px;">Account settings</div>
+        <div class="card mb-2" style="max-width:600px;">
+          <div style="font-size:14px;font-weight:700;margin-bottom:12px;">Login details</div>
+          <div class="form-group"><label>Email</label><input type="email" id="acc-em"/></div>
+          <div class="form-group"><label>New password</label><input type="password" placeholder="Leave blank to keep current"/></div>
+          <button class="btn btn-yellow btn-sm" onclick="App.toast('Settings saved')">Save changes</button>
         </div>
-
-        <div class="card mb-3">
-          <h2 style="font-size:16px;font-weight:800;margin-bottom:12px;">Credits &amp; billing</h2>
-          <div style="display:flex;align-items:center;gap:16px;padding:14px;background:var(--bg);border-radius:8px;margin-bottom:14px;">
-            <span style="font-size:36px;font-weight:900;color:var(--blue);" id="rec-credits">50</span>
-            <div><p class="bold">Credits remaining</p><p class="text-sm text-muted">Each credit unlocks one candidate's contact details</p></div>
-          </div>
-          <button class="btn btn-yellow" onclick="App.go('basket')">Buy more credits</button>
+        <div class="card mb-2" style="max-width:600px;">
+          <div style="font-size:14px;font-weight:700;margin-bottom:10px;">Credits</div>
+          <div>Balance: <strong id="rstat-credits-2">0</strong> credits</div>
+          <button class="btn btn-yellow btn-sm mt-2" onclick="App.go('basket')">Buy credits</button>
         </div>
-
-        <div class="card mb-3">
-          <h2 style="font-size:16px;font-weight:800;margin-bottom:12px;">Email preferences</h2>
-          <label style="text-transform:none;letter-spacing:0;display:flex;align-items:center;gap:10px;margin-bottom:10px;cursor:pointer;font-size:13px;font-weight:400;"><input type="checkbox" checked/> Monthly digest of new CVs matching my searches</label>
-          <label style="text-transform:none;letter-spacing:0;display:flex;align-items:center;gap:10px;margin-bottom:10px;cursor:pointer;font-size:13px;font-weight:400;"><input type="checkbox" checked/> Instant alerts when new CVs match saved searches</label>
-          <label style="text-transform:none;letter-spacing:0;display:flex;align-items:center;gap:10px;cursor:pointer;font-size:13px;font-weight:400;"><input type="checkbox"/> Weekly summary email</label>
-          <button class="btn btn-outline btn-sm mt-2" onclick="App.toast('✓ Preferences saved')">Save preferences</button>
-        </div>
-
-        <div class="card" style="border-color:#ffcdd2;">
-          <h2 style="font-size:16px;font-weight:800;color:var(--red);margin-bottom:10px;">Danger zone</h2>
-          <div style="display:flex;gap:10px;">
-            <button class="btn btn-red btn-sm" onclick="App.logout()">Sign out</button>
-            <button class="btn btn-red btn-sm" onclick="App.toast('Please contact support to delete your account')">Delete account</button>
-          </div>
+        <div class="card" style="max-width:600px;border-color:#f5c6c6;">
+          <div style="font-size:13px;color:#c0392b;font-weight:700;margin-bottom:8px;">Danger zone</div>
+          <button class="btn btn-outline btn-sm" style="border-color:#c0392b;color:#c0392b;" onclick="App.logout()">Sign out</button>
         </div>
       </div>
 
@@ -696,466 +590,324 @@
   </div>
 </div>
 
-<!-- ══════════════════════ PAGE: CANDIDATE ACCOUNT ══════════════════════ -->
+<!-- ══ PAGE: CANDIDATE ACCOUNT ═══════════════════════════ -->
 <div id="page-candidate" class="page">
-  <div class="app-layout">
-    <div class="sidebar">
-      <div class="sidebar-user">
-        <div class="avatar av-sm" id="cand-av" style="background:#2e7d32;">ME</div>
+  <div class="dash-layout">
+    <div class="dash-sidebar cloud-bg">
+      <div class="dash-user">
+        <div class="avatar av-sm" id="cand-av" style="background:#2a7a2a;">ME</div>
         <div>
-          <p style="font-size:13px;font-weight:800;" id="cand-name">Candidate</p>
-          <p class="text-xs text-muted">Candidate account</p>
+          <div style="font-size:12px;font-weight:700;" id="cand-name-disp">Candidate</div>
+          <div class="text-xs text-muted">Candidate account</div>
         </div>
       </div>
-      <div class="sidebar-section">My CVs</div>
-      <a class="sidebar-item active cand-tab-btn" data-tab="mycvs" onclick="App.switchCandTab('mycvs')"><span class="icon">📄</span> My CVs</a>
-      <a class="sidebar-item cand-tab-btn" data-tab="messages" onclick="App.switchCandTab('messages')"><span class="icon">💬</span> Messages</a>
-      <div class="sidebar-section">Account</div>
-      <a class="sidebar-item cand-tab-btn" data-tab="settings" onclick="App.switchCandTab('settings')"><span class="icon">⚙</span> Settings &amp; Privacy</a>
-      <div class="divider"></div>
-      <a class="sidebar-item" onclick="App.go('search')"><span class="icon">👁</span> Preview in search</a>
+      <a class="dash-item active cand-tab-btn" data-tab="mycv" onclick="App.switchCandTab('mycv')">My CV</a>
+      <a class="dash-item cand-tab-btn" data-tab="messages" onclick="App.switchCandTab('messages')">Messages</a>
+      <div class="dash-item-sep"></div>
+      <a class="dash-item cand-tab-btn" data-tab="settings" onclick="App.switchCandTab('settings')">Settings</a>
+      <div class="dash-item-sep"></div>
+      <a class="dash-item" onclick="App.go('search')">Preview in search</a>
     </div>
 
-    <div class="main-panel">
-
-      <!-- MY CVs -->
-      <div id="cand-panel-mycvs" class="cand-panel">
+    <div class="dash-main">
+      <div id="cand-panel-mycv" class="cand-panel">
         <div class="flex-between mb-2">
-          <h1 style="font-size:22px;font-weight:900;">My CVs</h1>
-          <button class="btn btn-blue btn-sm" onclick="App.toast('You can create up to 5 CV profiles')">+ Create new CV</button>
+          <div style="font-size:18px;font-weight:700;">My CV</div>
+          <button class="btn btn-yellow btn-sm" onclick="App.toast('Up to 5 CV profiles allowed')">+ New CV</button>
         </div>
-        <div class="cv-pill-tabs mb-3">
-          <div class="cv-pill active">CV 1: Main profile</div>
-          <div class="cv-pill">CV 2: Alternative</div>
-          <div class="cv-pill cv-pill-add">+ Add CV</div>
+        <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap;">
+          <div style="background:var(--blue);color:#fff;border-radius:12px;padding:4px 14px;font-size:12px;cursor:pointer;">CV 1: Main</div>
+          <div style="background:#f0f0f0;border:1px solid var(--border);border-radius:12px;padding:4px 14px;font-size:12px;cursor:pointer;">+ Add CV</div>
         </div>
-
-        <div class="notif notif-info mb-2">
-          💡 <span><strong>85% complete.</strong> Add a 30-second pitch video to boost your ranking in search results!</span>
-        </div>
-
-        <div class="card mb-3">
-          <div class="flex-between mb-2">
-            <h2 style="font-size:16px;font-weight:800;">Profile completion</h2>
-            <span class="badge badge-green">85%</span>
-          </div>
-          <div class="progress progress-md mb-2"><div class="progress-bar" style="width:85%;"></div></div>
-          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px;">
-            <div style="text-align:center;padding:8px;background:var(--green-light);border-radius:6px;font-size:12px;font-weight:700;color:var(--green);">✓ Profile text</div>
-            <div style="text-align:center;padding:8px;background:var(--green-light);border-radius:6px;font-size:12px;font-weight:700;color:var(--green);">✓ Key skills</div>
-            <div style="text-align:center;padding:8px;background:var(--green-light);border-radius:6px;font-size:12px;font-weight:700;color:var(--green);">✓ Experience</div>
-            <div style="text-align:center;padding:8px;background:var(--green-light);border-radius:6px;font-size:12px;font-weight:700;color:var(--green);">✓ Photo</div>
-            <div style="text-align:center;padding:8px;background:var(--amber-light);border-radius:6px;font-size:12px;font-weight:700;color:var(--amber);">⚠ Video missing</div>
-            <div style="text-align:center;padding:8px;background:var(--amber-light);border-radius:6px;font-size:12px;font-weight:700;color:var(--amber);">⚠ Quals missing</div>
-          </div>
-        </div>
-
-        <div class="card mb-3">
-          <h2 style="font-size:16px;font-weight:800;margin-bottom:18px;">Edit CV</h2>
-
-          <div class="form-group">
-            <label>Job title(s) — shown in search results</label>
-            <input type="text" value="Gas Engineer, Plumber"/>
-            <p class="text-xs text-muted mt-1">Separate multiple titles with a comma</p>
-          </div>
-          <div class="form-group">
-            <label>What are you doing now?</label>
-            <input type="text" value="Currently working as a senior gas engineer in Manchester"/>
-          </div>
-          <div class="form-group">
-            <label>Personal profile</label>
-            <textarea>Reliable, qualified Gas Safe engineer with 12 years' residential and commercial experience across Greater Manchester. Fast worker, great communicator, always punctual.</textarea>
-          </div>
-          <div class="form-group">
-            <label>Key skills (comma separated)</label>
-            <input type="text" value="Gas Safe Registered, Boiler Installation, Central Heating, Bathroom Fitting, Underfloor Heating"/>
+        <div class="notif-bar mb-2">Profile is <strong>85% complete</strong>. Add a 30-second video to boost your search ranking.</div>
+        <div class="card mb-2">
+          <div style="font-size:14px;font-weight:700;margin-bottom:14px;">Edit your CV</div>
+          <div class="form-group"><label>Job title(s)</label><input type="text" value="Gas Engineer, Plumber"/></div>
+          <div class="form-group"><label>Personal profile</label><textarea>Reliable, qualified Gas Safe engineer with 12 years residential and commercial experience across Greater Manchester.</textarea></div>
+          <div class="form-group"><label>Key skills (comma separated)</label><input type="text" value="Gas Safe Registered, Boiler Installation, Central Heating, Bathroom Fitting"/></div>
+          <div class="form-row">
+            <div class="form-group"><label>Location</label><input type="text" value="Manchester"/></div>
+            <div class="form-group"><label>Notice period</label><input type="text" value="1 week"/></div>
           </div>
           <div class="form-row">
-            <div class="form-group">
-              <label>Location (town / city)</label>
-              <input type="text" value="Manchester"/>
-            </div>
-            <div class="form-group">
-              <label>Notice period</label>
-              <input type="text" value="1 week"/>
-            </div>
+            <div class="form-group"><label>Salary expectation</label><input type="text" value="£38,000+"/></div>
+            <div class="form-group"><label>Contract type</label><select><option>Permanent</option><option>Contract</option><option>Either</option></select></div>
           </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label>Salary expectation</label>
-              <input type="text" value="£38,000+"/>
-            </div>
-            <div class="form-group">
-              <label>Contract type preference</label>
-              <select><option>Permanent</option><option>Contract</option><option>Either</option></select>
-            </div>
-          </div>
-          <div class="form-group">
-            <label>Ideal job &amp; future goals</label>
-            <textarea>Looking for a permanent senior plumber or gas engineer role in Greater Manchester. Open to long-term contract with good rates.</textarea>
-          </div>
-          <div class="form-group">
-            <label>Hobbies &amp; interests</label>
-            <input type="text" value="Five-a-side football, DIY, cycling"/>
-          </div>
-          <div class="form-group">
-            <label>Availability status</label>
+          <div class="form-group"><label>Ideal job</label><input type="text" value="Senior plumber or gas engineer role in Greater Manchester"/></div>
+          <div class="form-group"><label>Status</label>
             <select>
               <option>Actively looking — show in search</option>
-              <option>In work but open to offers</option>
-              <option>Hidden — not showing in search</option>
+              <option>In work, open to offers</option>
+              <option>Hidden from search</option>
             </select>
           </div>
-
-          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:6px;">
-            <button class="btn btn-blue" onclick="App.toast('✓ CV saved successfully')">Save changes</button>
-            <button class="btn btn-outline" onclick="App.go('profile') || App.openProfile(1)">Preview my CV</button>
+          <div style="display:flex;gap:8px;">
+            <button class="btn btn-yellow btn-sm" onclick="App.toast('CV saved')">Save changes</button>
+            <button class="btn btn-outline btn-sm" onclick="App.openProfile(1)">Preview CV</button>
           </div>
         </div>
-
-        <div class="card mb-3">
-          <h2 style="font-size:16px;font-weight:800;margin-bottom:10px;">Upload existing CV</h2>
-          <p class="text-sm text-muted mb-2">Upload a Word or PDF CV and we'll automatically extract the details into the right fields.</p>
-          <div style="border:2px dashed var(--border);border-radius:8px;padding:28px;text-align:center;cursor:pointer;" onclick="App.toast('File upload coming in the next version!')">
-            <p style="font-size:32px;margin-bottom:8px;">📎</p>
-            <p class="bold">Click to upload or drag and drop</p>
-            <p class="text-xs text-muted">Supports PDF, Word (.docx), and plain text</p>
-          </div>
-        </div>
-
         <div class="card">
-          <h2 style="font-size:16px;font-weight:800;margin-bottom:10px;">Media &amp; photos</h2>
-          <p class="text-sm text-muted mb-3">Add photos and a video to make your profile stand out.</p>
-          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px;">
-            <div style="aspect-ratio:1;background:#1565c0;border-radius:8px;opacity:.65;"></div>
-            <div style="aspect-ratio:1;background:#2e7d32;border-radius:8px;opacity:.65;"></div>
-            <div style="aspect-ratio:1;border:2px dashed var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:24px;color:var(--text-3);" onclick="App.toast('Photo upload coming soon!')">+</div>
-            <div style="aspect-ratio:1;border:2px dashed var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;font-size:24px;color:var(--text-3);" onclick="App.toast('Photo upload coming soon!')">+</div>
+          <div style="font-size:14px;font-weight:700;margin-bottom:8px;">Upload existing CV</div>
+          <div class="text-sm text-muted mb-2">Upload a Word or PDF — we'll extract the details automatically.</div>
+          <div style="border:1px dashed var(--border);border-radius:3px;padding:24px;text-align:center;cursor:pointer;" onclick="App.toast('File upload coming soon')">
+            <div style="font-size:28px;margin-bottom:6px;">📎</div>
+            <div class="text-sm">Click to upload or drag and drop</div>
+            <div class="text-xs text-muted">PDF, Word (.docx), plain text</div>
           </div>
-          <button class="btn btn-outline btn-sm" onclick="App.toast('Video recording coming soon!')">🎬 Record 30-second pitch video</button>
         </div>
       </div>
 
-      <!-- MESSAGES -->
       <div id="cand-panel-messages" class="cand-panel" style="display:none;">
-        <h1 style="font-size:22px;font-weight:900;margin-bottom:20px;">Messages</h1>
-        <div class="notif notif-info mb-2">📧 <span>You have <strong>1 new message</strong> from ABC Recruitment Ltd.</span></div>
-        <div style="display:grid;grid-template-columns:220px 1fr;gap:0;border:1px solid var(--border);border-radius:10px;overflow:hidden;min-height:380px;">
-          <div style="background:var(--bg);border-right:1px solid var(--border);padding:12px;">
-            <p style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.5px;color:var(--text-3);margin-bottom:10px;">Inbox</p>
-            <div style="background:#fff;border:1.5px solid var(--blue);border-radius:8px;padding:10px;cursor:pointer;margin-bottom:6px;">
-              <p style="font-size:13px;font-weight:700;">ABC Recruitment</p>
-              <p class="text-xs text-muted">Can I arrange a call?</p>
-              <p class="text-xs" style="color:var(--blue);margin-top:2px;">● New</p>
+        <div style="font-size:18px;font-weight:700;margin-bottom:14px;">Messages from recruiters</div>
+        <div class="notif-bar mb-2">You have 1 new message from ABC Recruitment Ltd.</div>
+        <div style="display:grid;grid-template-columns:180px 1fr;gap:0;border:1px solid var(--border);border-radius:3px;overflow:hidden;min-height:320px;">
+          <div style="background:#f9f9f9;border-right:1px solid var(--border);padding:10px;">
+            <div style="padding:8px;background:#fff;border:1px solid var(--blue);border-radius:2px;cursor:pointer;">
+              <div class="bold text-sm">ABC Recruitment</div>
+              <div class="text-xs text-muted">Can I arrange a call?</div>
+              <div class="text-xs" style="color:var(--blue);margin-top:2px;">New</div>
             </div>
           </div>
-          <div style="display:flex;flex-direction:column;padding:16px;">
-            <p style="font-size:13px;font-weight:700;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border);">ABC Recruitment Ltd — Gas Engineer opportunity</p>
-            <div class="msg-list" id="cand-thread" style="flex:1;">
-              <div><div class="msg-bubble them">Hi, we have a great opportunity for a Gas Safe engineer in Trafford. Permanent role, £40k. Would you be interested?</div><div class="msg-time">ABC Recruitment · 2 days ago</div></div>
-              <div><div class="msg-bubble me">Thanks for reaching out! Yes, I'd love to hear more. What's the start date?</div><div class="msg-time right">You · 1 day ago</div></div>
-              <div><div class="msg-bubble them">Start ASAP. Can I arrange a quick 10-minute call?</div><div class="msg-time">ABC Recruitment · 12 hrs ago</div></div>
+          <div style="display:flex;flex-direction:column;padding:14px;">
+            <div class="bold text-sm" style="padding-bottom:10px;border-bottom:1px solid var(--border);margin-bottom:10px;">ABC Recruitment Ltd</div>
+            <div class="msg-thread" id="cand-thread" style="flex:1;">
+              <div><div class="msg-them">Hi, we have a Gas Safe role in Trafford, £40k permanent. Would you be interested?</div><div class="msg-time">ABC Recruitment · 2 days ago</div></div>
+              <div><div class="msg-me">Thanks! I'd love to hear more. What's the start date?</div><div class="msg-time r">You · 1 day ago</div></div>
             </div>
-            <div class="msg-input-row mt-2">
-              <input type="text" id="cand-msg-inp" placeholder="Type a reply..."/>
-              <button class="btn btn-blue" onclick="App.sendMessage('cand-msg-inp','cand-thread')">Send</button>
+            <div class="msg-row mt-1">
+              <input type="text" id="cand-msg" placeholder="Reply..."/>
+              <button class="btn btn-blue btn-sm" onclick="App.sendMsg('cand-msg','cand-thread')">Send</button>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- SETTINGS -->
       <div id="cand-panel-settings" class="cand-panel" style="display:none;">
-        <h1 style="font-size:22px;font-weight:900;margin-bottom:24px;">Settings &amp; Privacy</h1>
-
-        <div class="card mb-3">
-          <h2 style="font-size:16px;font-weight:800;margin-bottom:16px;">Contact details</h2>
-          <p class="text-sm text-muted mb-2">These are hidden from your public profile. Only recruiters who purchase your CV can see them.</p>
+        <div style="font-size:18px;font-weight:700;margin-bottom:16px;">Settings &amp; Privacy</div>
+        <div class="card mb-2" style="max-width:560px;">
+          <div style="font-size:14px;font-weight:700;margin-bottom:12px;">Contact details (hidden from public)</div>
           <div class="form-row">
-            <div class="form-group"><label>Email</label><input type="email" placeholder="your@email.com"/></div>
-            <div class="form-group"><label>Phone number</label><input type="tel" placeholder="07..."/></div>
+            <div class="form-group"><label>Email</label><input type="email"/></div>
+            <div class="form-group"><label>Phone</label><input type="tel"/></div>
           </div>
-          <button class="btn btn-blue btn-sm" onclick="App.toast('✓ Contact details saved')">Save</button>
+          <button class="btn btn-yellow btn-sm" onclick="App.toast('Saved')">Save</button>
         </div>
-
-        <div class="card mb-3">
-          <h2 style="font-size:16px;font-weight:800;margin-bottom:14px;">Privacy &amp; visibility</h2>
-          <label style="text-transform:none;letter-spacing:0;display:flex;align-items:center;gap:10px;margin-bottom:12px;cursor:pointer;font-size:14px;font-weight:400;"><input type="checkbox" checked/> Show my CV in search results</label>
-          <label style="text-transform:none;letter-spacing:0;display:flex;align-items:center;gap:10px;margin-bottom:12px;cursor:pointer;font-size:14px;font-weight:400;"><input type="checkbox" checked/> Allow recruiters to message me</label>
-          <label style="text-transform:none;letter-spacing:0;display:flex;align-items:center;gap:10px;margin-bottom:12px;cursor:pointer;font-size:14px;font-weight:400;"><input type="checkbox" checked/> Include my CV in Google &amp; web search results</label>
-          <label style="text-transform:none;letter-spacing:0;display:flex;align-items:center;gap:10px;cursor:pointer;font-size:14px;font-weight:400;"><input type="checkbox"/> Email me when new jobs match my profile</label>
+        <div class="card mb-2" style="max-width:560px;">
+          <div style="font-size:14px;font-weight:700;margin-bottom:10px;">Privacy</div>
+          <div style="margin-bottom:8px;"><label style="text-transform:none;letter-spacing:0;display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;"><input type="checkbox" checked/> Show CV in search results</label></div>
+          <div style="margin-bottom:8px;"><label style="text-transform:none;letter-spacing:0;display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;"><input type="checkbox" checked/> Allow recruiters to message me</label></div>
+          <div style="margin-bottom:8px;"><label style="text-transform:none;letter-spacing:0;display:flex;align-items:center;gap:8px;font-size:13px;cursor:pointer;"><input type="checkbox" checked/> Include in Google / web search</label></div>
         </div>
-
-        <div class="card mb-3">
-          <h2 style="font-size:16px;font-weight:800;margin-bottom:10px;">Change password</h2>
-          <div class="form-row">
-            <div class="form-group"><label>Current password</label><input type="password" placeholder="••••••••"/></div>
-            <div class="form-group"><label>New password</label><input type="password" placeholder="••••••••"/></div>
-          </div>
-          <button class="btn btn-outline btn-sm" onclick="App.toast('✓ Password updated')">Update password</button>
-        </div>
-
-        <div class="card" style="border-color:#ffcdd2;">
-          <h2 style="font-size:16px;font-weight:800;color:var(--red);margin-bottom:10px;">Account</h2>
-          <div style="display:flex;gap:10px;">
-            <button class="btn btn-red btn-sm" onclick="App.logout()">Sign out</button>
-            <button class="btn btn-red btn-sm" onclick="App.toast('Please contact support to delete your account')">Delete account</button>
-          </div>
+        <div class="card" style="max-width:560px;border-color:#f5c6c6;">
+          <button class="btn btn-outline btn-sm" style="border-color:#c0392b;color:#c0392b;" onclick="App.logout()">Sign out</button>
         </div>
       </div>
-
     </div>
   </div>
 </div>
 
-<!-- ══════════════════════ PAGE: ADVANCED SEARCH ══════════════════════ -->
-<div id="page-advanced" class="page" style="background:var(--bg);padding-bottom:48px;">
-  <div style="background:var(--blue);padding:28px 0;margin-bottom:32px;">
-    <div class="container"><h1 style="font-family:'Nunito',sans-serif;font-size:26px;font-weight:900;color:#fff;">Advanced CV Search</h1><p style="color:rgba(255,255,255,.8);font-size:14px;margin-top:4px;">Precise Google-style searching — find exactly the right candidate</p></div>
-  </div>
-  <div class="adv-page">
-    <div class="card mb-2">
-      <p class="adv-section-title">Find CVs that have...</p>
-      <div class="adv-row"><label>All these words:</label><input type="text" id="adv-all" placeholder="e.g. plumber manchester gas safe"/></div>
-      <div class="adv-row"><label>This exact phrase:</label><input type="text" id="adv-exact" placeholder="e.g. &quot;gas safe registered&quot;"/></div>
-      <div class="adv-row">
-        <label>One or more of these:</label>
-        <div class="input-row"><input type="text" placeholder="word 1"/><input type="text" placeholder="word 2"/><input type="text" placeholder="word 3"/></div>
+<!-- ══ PAGE: JOB BOARD ═══════════════════════════════════ -->
+<div id="page-jobboard" class="page">
+  <div style="background:var(--sky);border-bottom:1px solid var(--sky-dark);padding:12px 20px;" class="cloud-bg">
+    <div style="max-width:var(--max);margin:0 auto;display:flex;align-items:center;gap:10px;flex-wrap:wrap;">
+      <div class="nav-logo" onclick="App.go('home')">see<span>Cv</span></div>
+      <span style="font-size:14px;color:var(--text-mid);font-weight:700;">/jobs</span>
+      <div class="search-box" style="flex:1;max-width:600px;border-radius:3px;margin-left:10px;">
+        <input type="text" id="job-q" placeholder="Job title, skills, keywords..."/>
+        <div class="sep"></div>
+        <input type="text" id="job-loc" class="loc-field" placeholder="Location"/>
+        <button class="search-btn-main" style="border-radius:0;" onclick="App.renderJobBoard()">Search</button>
       </div>
-    </div>
-    <div class="card mb-2">
-      <p class="adv-section-title">But don't show CVs that have...</p>
-      <div class="adv-row"><label>Unwanted words:</label><input type="text" id="adv-not" placeholder="e.g. manager director senior"/></div>
-    </div>
-    <div class="card mb-2">
-      <p class="adv-section-title">Location</p>
-      <div class="adv-row"><label>Town / city / postcode:</label><input type="text" id="adv-loc" placeholder="e.g. Manchester, M1, North West"/></div>
-      <div class="adv-row">
-        <label>Search radius:</label>
-        <select style="width:auto;"><option>5 miles</option><option>10 miles</option><option selected>25 miles</option><option>50 miles</option><option>Nationwide</option></select>
-      </div>
-      <div class="adv-row">
-        <label>Scope:</label>
-        <div style="display:flex;gap:20px;align-items:center;font-size:13px;">
-          <label style="text-transform:none;letter-spacing:0;font-weight:400;display:flex;gap:6px;margin:0;cursor:pointer;"><input type="radio" name="ascope" checked/> All CVs</label>
-          <label style="text-transform:none;letter-spacing:0;font-weight:400;display:flex;gap:6px;margin:0;cursor:pointer;"><input type="radio" name="ascope"/> UK CVs only</label>
-          <label style="text-transform:none;letter-spacing:0;font-weight:400;display:flex;gap:6px;margin:0;cursor:pointer;"><input type="radio" name="ascope"/> Willing to relocate</label>
-        </div>
-      </div>
-    </div>
-    <div class="card mb-3">
-      <p class="adv-section-title">Search criteria</p>
-      <div class="adv-row">
-        <label>Contract type:</label>
-        <select style="width:auto;"><option>Any</option><option>Permanent</option><option>Contract</option><option>Freelance</option><option>Temporary</option></select>
-      </div>
-      <div class="adv-row">
-        <label>Minimum salary:</label>
-        <select style="width:auto;"><option>Any salary</option><option>£20,000+</option><option>£30,000+</option><option>£40,000+</option><option>£50,000+</option><option>£60,000+</option><option>£80,000+</option></select>
-      </div>
-      <div class="adv-row">
-        <label>Search in:</label>
-        <div style="display:flex;gap:16px;font-size:13px;align-items:center;">
-          <label style="text-transform:none;letter-spacing:0;font-weight:400;display:flex;gap:6px;margin:0;cursor:pointer;"><input type="checkbox" checked/> Job titles</label>
-          <label style="text-transform:none;letter-spacing:0;font-weight:400;display:flex;gap:6px;margin:0;cursor:pointer;"><input type="checkbox" checked/> Skills</label>
-          <label style="text-transform:none;letter-spacing:0;font-weight:400;display:flex;gap:6px;margin:0;cursor:pointer;"><input type="checkbox" checked/> Profile text</label>
-          <label style="text-transform:none;letter-spacing:0;font-weight:400;display:flex;gap:6px;margin:0;cursor:pointer;"><input type="checkbox" checked/> Experience</label>
-        </div>
-      </div>
-    </div>
-    <div style="display:flex;gap:10px;">
-      <button class="btn btn-blue btn-lg" onclick="App.search(document.getElementById('adv-all').value,document.getElementById('adv-loc').value)">Search CVs</button>
-      <button class="btn btn-outline" onclick="document.querySelectorAll('.adv-page input[type=text]').forEach(i=>i.value='')">Clear all</button>
+      <button class="btn btn-yellow btn-sm" onclick="App.user?App.toast('Job posting form coming soon'):App.openModal('modal-signup')">Post a job</button>
     </div>
   </div>
-</div>
 
-<!-- ══════════════════════ PAGE: ABOUT ══════════════════════ -->
-<div id="page-about" class="page">
-  <div class="page-hero">
-    <div class="container">
-      <h1>About SeeCv</h1>
-      <p>The multimedia CV database — for absolutely everyone</p>
+  <div style="max-width:var(--max);margin:0 auto;padding:16px 20px;display:flex;gap:0;">
+    <div style="flex:1;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <div style="font-size:13px;color:var(--text-muted);" id="job-count">Loading jobs...</div>
+        <select style="font-size:12px;padding:3px 8px;border:1px solid var(--border);border-radius:2px;">
+          <option>Sort: Most recent</option><option>Sort: Salary</option><option>Sort: Relevance</option>
+        </select>
+      </div>
+      <div id="job-list"></div>
     </div>
-  </div>
-  <div class="content-section">
-    <div class="container-sm">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-bottom:48px;">
-        <div>
-          <h2 style="font-family:'Nunito',sans-serif;font-size:22px;font-weight:900;color:var(--blue);margin-bottom:14px;">What is SeeCv?</h2>
-          <p style="line-height:1.8;color:var(--text-2);">SeeCv is an online multimedia CV database designed for anyone and everyone — not just white-collar professionals. Tradespeople, students, athletes, artists, freelancers, and anyone with a skill or passion can create a free profile with photos and video to showcase what they can really do.</p>
-        </div>
-        <div>
-          <h2 style="font-family:'Nunito',sans-serif;font-size:22px;font-weight:900;color:var(--blue);margin-bottom:14px;">Why SeeCv?</h2>
-          <p style="line-height:1.8;color:var(--text-2);">Traditional job boards are text-heavy, expensive, and built only for office professionals. SeeCv cuts out the recruitment middleman. Recruiters search for free and only pay £1 when they find someone they actually want to contact. No subscriptions. No wasted time.</p>
-        </div>
+
+    <div style="width:210px;flex-shrink:0;padding-left:20px;border-left:1px solid var(--border-light);">
+      <div class="filter-section">
+        <h4>Job type</h4>
+        <div class="filter-opt"><input type="checkbox" checked/> Permanent</div>
+        <div class="filter-opt"><input type="checkbox" checked/> Contract</div>
+        <div class="filter-opt"><input type="checkbox"/> Temporary</div>
+        <div class="filter-opt"><input type="checkbox"/> Freelance</div>
       </div>
-
-      <div style="background:var(--blue);border-radius:14px;padding:40px;text-align:center;margin-bottom:48px;">
-        <h2 style="font-family:'Nunito',sans-serif;font-size:28px;font-weight:900;color:#fff;margin-bottom:10px;">"Power to the people"</h2>
-        <p style="color:rgba(255,255,255,.8);font-size:16px;margin-bottom:24px;max-width:500px;margin-left:auto;margin-right:auto;">Create your free multimedia CV today. Add photos, video and your full story. Let the world discover what you can do.</p>
-        <button class="btn btn-yellow btn-lg" onclick="App.openModal('modal-signup')">Sign up free →</button>
+      <div class="filter-section">
+        <h4>Salary</h4>
+        <select style="font-size:12px;width:100%;">
+          <option>Any</option><option>£20k+</option><option>£30k+</option><option>£40k+</option><option>£50k+</option>
+        </select>
       </div>
-
-      <h2 style="font-family:'Nunito',sans-serif;font-size:22px;font-weight:900;margin-bottom:20px;">Why we're different</h2>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-bottom:40px;">
-        <div class="card text-center">
-          <div style="font-size:36px;margin-bottom:10px;">🎬</div>
-          <h3 style="font-weight:800;margin-bottom:6px;">Multimedia CVs</h3>
-          <p class="text-sm text-muted">Photos, videos and portfolios — see people's work instantly, not just words.</p>
-        </div>
-        <div class="card text-center">
-          <div style="font-size:36px;margin-bottom:10px;">👷</div>
-          <h3 style="font-weight:800;margin-bottom:6px;">Anyone &amp; everyone</h3>
-          <p class="text-sm text-muted">From apprentice plumbers to senior executives. Every skill, every sector.</p>
-        </div>
-        <div class="card text-center">
-          <div style="font-size:36px;margin-bottom:10px;">💷</div>
-          <h3 style="font-weight:800;margin-bottom:6px;">Pay as you go</h3>
-          <p class="text-sm text-muted">Search free forever. Only pay £1 when you find someone you like.</p>
-        </div>
+      <div class="filter-section">
+        <h4>Radius</h4>
+        <select style="font-size:12px;width:100%;">
+          <option>10 miles</option><option selected>25 miles</option><option>50 miles</option><option>UK-wide</option>
+        </select>
       </div>
-
-      <h2 style="font-family:'Nunito',sans-serif;font-size:22px;font-weight:900;margin-bottom:14px;">Competitors</h2>
-      <p style="color:var(--text-2);line-height:1.8;margin-bottom:40px;">LinkedIn is for white-collar networking, not showcasing real-world skills. Monster, CV Library and Indeed are basic text databases with no media support, high costs and locked-in candidate data. SeeCv is different — open, visual, cheap and built for everyone.</p>
-
-      <div style="text-align:center;padding:32px 0;border-top:1px solid var(--border);">
-        <h2 style="font-family:'Nunito',sans-serif;font-size:20px;font-weight:900;margin-bottom:10px;">Get in touch</h2>
-        <p class="text-muted text-sm">Questions? Partnerships? Press? We'd love to hear from you.</p>
-        <p style="margin-top:10px;"><a href="mailto:hello@seecv.com" style="font-size:16px;font-weight:700;">hello@seecv.com</a></p>
+      <div style="border-top:1px solid var(--border-light);padding-top:12px;margin-top:4px;">
+        <div style="font-size:12px;font-weight:700;color:var(--text-mid);margin-bottom:6px;">Are you a recruiter?</div>
+        <div class="text-xs text-muted mb-2">Post jobs directly to matching SeeCv candidates.</div>
+        <button class="btn btn-yellow btn-sm w-full" onclick="App.user?App.toast('Job posting form coming soon'):App.openModal('modal-signup')">Post a job</button>
+        <div class="text-xs text-muted mt-1">Also search the full CV database →</div>
+        <button class="btn btn-outline btn-sm w-full mt-1" onclick="App.go('search')">Search CVs</button>
       </div>
     </div>
   </div>
-  <footer class="footer">
-    <div class="footer-inner"><div class="footer-bottom" style="border:none;padding:0;"><p>© 2025 SeeCv Ltd</p></div></div>
+
+  <footer class="footer cloud-bg">
+    <a onclick="App.go('home')">SeeCv Home</a>
+    <a onclick="App.go('search')">Search CVs</a>
+    <a>Privacy</a><a onclick="App.go('help')">Help</a>
+    <span style="margin-left:auto;">© 2025 SeeCv Ltd — seecv.com/jobs</span>
   </footer>
 </div>
 
-<!-- ══════════════════════ PAGE: HELP ══════════════════════ -->
-<div id="page-help" class="page">
-  <div class="page-hero"><div class="container"><h1>Help &amp; FAQs</h1><p>Everything you need to get started with SeeCv</p></div></div>
-  <div class="content-section">
-    <div class="container-sm">
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;">
-        <div>
-          <h2 style="font-family:'Nunito',sans-serif;font-size:20px;font-weight:900;margin-bottom:16px;">For Candidates</h2>
-          <div class="faq-item"><div class="faq-q" onclick="App.toggleFaq(this)">Is it free to create a CV? <span class="faq-arrow">▼</span></div><div class="faq-a">Yes — creating and maintaining your SeeCv profile is completely free for candidates, forever. No hidden charges.</div></div>
-          <div class="faq-item"><div class="faq-q" onclick="App.toggleFaq(this)">Who can see my contact details? <span class="faq-arrow">▼</span></div><div class="faq-a">Your phone number and email are always hidden from your public profile. Only recruiters who have purchased your CV can see them.</div></div>
-          <div class="faq-item"><div class="faq-q" onclick="App.toggleFaq(this)">Can I have more than one CV? <span class="faq-arrow">▼</span></div><div class="faq-a">Yes — you can create up to 5 different CV profiles for different roles or industries. Only the most relevant one appears in search results.</div></div>
-          <div class="faq-item"><div class="faq-q" onclick="App.toggleFaq(this)">Can I upload photos and videos? <span class="faq-arrow">▼</span></div><div class="faq-a">Yes! You can add photos, work images, portfolio pieces and a 30-second pitch video. Media is organised into galleries on your profile.</div></div>
-          <div class="faq-item"><div class="faq-q" onclick="App.toggleFaq(this)">Can I hide my CV from search? <span class="faq-arrow">▼</span></div><div class="faq-a">Yes — you can set your profile to hidden at any time in your account settings. You can also update your status to "in work" to indicate you're not actively looking.</div></div>
-          <div class="faq-item"><div class="faq-q" onclick="App.toggleFaq(this)">Can I upload my existing CV? <span class="faq-arrow">▼</span></div><div class="faq-a">Yes — upload a Word or PDF CV and SeeCv will automatically extract the details into the right fields, removing contact information for privacy.</div></div>
-        </div>
-        <div>
-          <h2 style="font-family:'Nunito',sans-serif;font-size:20px;font-weight:900;margin-bottom:16px;">For Recruiters</h2>
-          <div class="faq-item"><div class="faq-q" onclick="App.toggleFaq(this)">How much does searching cost? <span class="faq-arrow">▼</span></div><div class="faq-a">Searching SeeCv is completely free. You can view full CV profiles, skills, experience and photos at no cost. You only pay when you want to contact someone.</div></div>
-          <div class="faq-item"><div class="faq-q" onclick="App.toggleFaq(this)">How much does contacting a candidate cost? <span class="faq-arrow">▼</span></div><div class="faq-a">From just £1 per CV. Buy credits in bulk for better value — 10 for £30, 25 for £50, 50 for £80, or 100 for £130. Credits never expire.</div></div>
-          <div class="faq-item"><div class="faq-q" onclick="App.toggleFaq(this)">Do I need to sign up to search? <span class="faq-arrow">▼</span></div><div class="faq-a">No — guests can search and view CVs freely. You only need to sign up when you want to purchase a CV, save searches, or create alerts.</div></div>
-          <div class="faq-item"><div class="faq-q" onclick="App.toggleFaq(this)">Is there a money-back guarantee? <span class="faq-arrow">▼</span></div><div class="faq-a">Yes. If you purchase a CV and the contact details are out of date or the candidate is no longer available, we'll refund your credit — no questions asked.</div></div>
-          <div class="faq-item"><div class="faq-q" onclick="App.toggleFaq(this)">Can I set up email alerts? <span class="faq-arrow">▼</span></div><div class="faq-a">Yes — save any search and set up instant or weekly email alerts so you're notified the moment a new matching CV is added to SeeCv.</div></div>
-          <div class="faq-item"><div class="faq-q" onclick="App.toggleFaq(this)">Can I send jobs to candidates? <span class="faq-arrow">▼</span></div><div class="faq-a">Yes — recruiters can send targeted job notifications to matching candidates (small fee applies). This feature launches in Version 2.</div></div>
-        </div>
-      </div>
-
-      <div style="text-align:center;padding:40px 0;border-top:1px solid var(--border);margin-top:40px;">
-        <h2 style="font-family:'Nunito',sans-serif;font-size:20px;font-weight:900;margin-bottom:8px;">Still need help?</h2>
-        <p class="text-muted text-sm mb-3">Our team replies within 24 hours.</p>
-        <a href="mailto:help@seecv.com" class="btn btn-blue">Email support</a>
-      </div>
+<!-- ══ PAGE: ADVANCED SEARCH ════════════════════════════════ -->
+<div id="page-advanced" class="page" style="background:var(--sky);">
+  <div class="page-header cloud-bg"><h1>Advanced Search</h1><div class="text-sm text-muted">Google-style precision searching for CVs</div></div>
+  <div class="content-area">
+    <div class="card mb-2">
+      <div style="font-size:13px;font-weight:700;color:var(--blue);border-bottom:1px solid var(--sky);padding-bottom:5px;margin-bottom:12px;text-transform:uppercase;letter-spacing:.3px;">Find CVs that have...</div>
+      <div style="display:grid;grid-template-columns:180px 1fr;gap:10px;align-items:center;margin-bottom:8px;"><label style="text-transform:none;letter-spacing:0;">All these words:</label><input type="text" id="adv-all" placeholder="e.g. plumber manchester"/></div>
+      <div style="display:grid;grid-template-columns:180px 1fr;gap:10px;align-items:center;margin-bottom:8px;"><label style="text-transform:none;letter-spacing:0;">This exact phrase:</label><input type="text" placeholder="e.g. &quot;gas safe registered&quot;"/></div>
+      <div style="display:grid;grid-template-columns:180px 1fr;gap:10px;align-items:center;"><label style="text-transform:none;letter-spacing:0;">One or more of:</label><div style="display:flex;gap:8px;"><input type="text" placeholder="word 1" style="width:auto;flex:1;"/><input type="text" placeholder="word 2" style="width:auto;flex:1;"/><input type="text" placeholder="word 3" style="width:auto;flex:1;"/></div></div>
+    </div>
+    <div class="card mb-2">
+      <div style="font-size:13px;font-weight:700;color:var(--blue);border-bottom:1px solid var(--sky);padding-bottom:5px;margin-bottom:12px;text-transform:uppercase;letter-spacing:.3px;">But don't show CVs that have...</div>
+      <div style="display:grid;grid-template-columns:180px 1fr;gap:10px;align-items:center;"><label style="text-transform:none;letter-spacing:0;">Unwanted words:</label><input type="text" placeholder="e.g. manager director"/></div>
+    </div>
+    <div class="card mb-2">
+      <div style="font-size:13px;font-weight:700;color:var(--blue);border-bottom:1px solid var(--sky);padding-bottom:5px;margin-bottom:12px;text-transform:uppercase;letter-spacing:.3px;">Locations</div>
+      <div style="display:grid;grid-template-columns:180px 1fr;gap:10px;align-items:center;margin-bottom:8px;"><label style="text-transform:none;letter-spacing:0;">Within radius:</label><div style="display:flex;gap:8px;align-items:center;"><select style="width:auto;"><option>10 miles</option><option selected>25 miles</option><option>50 miles</option><option>Nationwide</option></select><label style="text-transform:none;letter-spacing:0;display:flex;align-items:center;gap:4px;"><input type="radio" name="av-scope" checked/> All CVs</label><label style="text-transform:none;letter-spacing:0;display:flex;align-items:center;gap:4px;"><input type="radio" name="av-scope"/> Willing to relocate</label></div></div>
+      <div style="display:grid;grid-template-columns:180px 1fr;gap:10px;align-items:center;"><label style="text-transform:none;letter-spacing:0;">Location:</label><input type="text" id="adv-loc" placeholder="Town, city or postcode"/></div>
+    </div>
+    <div class="card mb-3">
+      <div style="font-size:13px;font-weight:700;color:var(--blue);border-bottom:1px solid var(--sky);padding-bottom:5px;margin-bottom:12px;text-transform:uppercase;letter-spacing:.3px;">Search criteria</div>
+      <div style="display:grid;grid-template-columns:180px 1fr;gap:10px;align-items:center;margin-bottom:8px;"><label style="text-transform:none;letter-spacing:0;">Search job title only:</label><div><label style="text-transform:none;letter-spacing:0;display:inline-flex;align-items:center;gap:4px;margin-right:14px;"><input type="radio" name="title-only" checked/> No</label><label style="text-transform:none;letter-spacing:0;display:inline-flex;align-items:center;gap:4px;"><input type="radio" name="title-only"/> Yes</label></div></div>
+      <div style="display:grid;grid-template-columns:180px 1fr;gap:10px;align-items:center;margin-bottom:8px;"><label style="text-transform:none;letter-spacing:0;">Contract type:</label><select style="width:auto;"><option>Any</option><option>Permanent</option><option>Contract</option><option>Freelance</option><option>Temporary</option></select></div>
+      <div style="display:grid;grid-template-columns:180px 1fr;gap:10px;align-items:center;"><label style="text-transform:none;letter-spacing:0;">Minimum salary:</label><select style="width:auto;"><option>Any</option><option>£20,000+</option><option>£30,000+</option><option>£40,000+</option><option>£50,000+</option><option>£60,000+</option></select></div>
+    </div>
+    <div style="display:flex;gap:8px;">
+      <button class="btn btn-yellow" onclick="App.search(document.getElementById('adv-all').value,document.getElementById('adv-loc').value)">Search CVs</button>
+      <button class="btn btn-outline" onclick="document.querySelectorAll('.content-area input[type=text]').forEach(i=>i.value='')">Clear</button>
     </div>
   </div>
-  <footer class="footer"><div class="footer-inner"><div class="footer-bottom" style="border:none;padding:0;"><p>© 2025 SeeCv Ltd</p></div></div></footer>
 </div>
 
-<!-- ══════════════════════ MODALS ══════════════════════ -->
+<!-- ══ PAGE: ABOUT ═══════════════════════════════════════ -->
+<div id="page-about" class="page">
+  <div class="page-header cloud-bg"><h1>About SeeCv</h1></div>
+  <div class="content-area">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;margin-bottom:28px;">
+      <div>
+        <h2 style="font-size:16px;font-weight:700;color:var(--blue);margin-bottom:10px;">What is SeeCv?</h2>
+        <p class="text-sm" style="color:var(--text-mid);line-height:1.75;">SeeCv is an online multimedia CV database designed for anyone and everyone — not just white-collar professionals. From tradespeople to students, artists to freelancers, anyone with a skill or passion can create a free profile with photos and video.</p>
+      </div>
+      <div>
+        <h2 style="font-size:16px;font-weight:700;color:var(--blue);margin-bottom:10px;">Why SeeCv?</h2>
+        <p class="text-sm" style="color:var(--text-mid);line-height:1.75;">Traditional job boards are text-heavy, expensive and built for office professionals only. SeeCv cuts out the recruitment middleman. Search is free. Only pay £1 when you find someone you want to contact.</p>
+      </div>
+    </div>
+    <div style="background:var(--sky);border:1px solid var(--sky-dark);border-radius:3px;padding:24px;text-align:center;margin-bottom:28px;">
+      <div style="font-size:22px;font-weight:700;color:var(--blue);margin-bottom:6px;">"Power to the people..."</div>
+      <p class="text-sm text-muted mb-2">Create your free multimedia CV. Add photos, video and your full story. Let the world discover you.</p>
+      <button class="btn btn-yellow" onclick="App.openModal('modal-signup')">Sign up free</button>
+    </div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;">
+      <div class="card"><div style="font-size:13px;font-weight:700;margin-bottom:6px;">Multimedia CVs</div><p class="text-xs text-muted">Photos, videos and portfolios. See people's work, not just words.</p></div>
+      <div class="card"><div style="font-size:13px;font-weight:700;margin-bottom:6px;">Pay as you go</div><p class="text-xs text-muted">Search free forever. Only pay £1 per contact. No subscriptions.</p></div>
+      <div class="card"><div style="font-size:13px;font-weight:700;margin-bottom:6px;">For everyone</div><p class="text-xs text-muted">Tradespeople, students, creatives, professionals. Every skill, every sector.</p></div>
+    </div>
+  </div>
+  <footer class="footer cloud-bg"><a onclick="App.go('home')">Home</a><a>Privacy</a><a onclick="App.go('help')">Help</a><span style="margin-left:auto;">© 2025 SeeCv Ltd</span></footer>
+</div>
 
-<!-- Sign In -->
+<!-- ══ PAGE: HELP ══════════════════════════════════════ -->
+<div id="page-help" class="page">
+  <div class="page-header cloud-bg"><h1>Help &amp; FAQs</h1></div>
+  <div class="content-area">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;">
+      <div>
+        <h2 style="font-size:14px;font-weight:700;color:var(--blue);margin-bottom:10px;">For Candidates</h2>
+        <div class="faq-item"><div class="faq-q" onclick="App.toggleFaq(this)">Is it free to create a CV? <span class="faq-arr">▼</span></div><div class="faq-a">Yes — completely free for candidates, forever.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="App.toggleFaq(this)">Who can see my contact details? <span class="faq-arr">▼</span></div><div class="faq-a">Your contact details are always hidden. Only recruiters who have purchased your CV can see them.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="App.toggleFaq(this)">Can I have more than one CV? <span class="faq-arr">▼</span></div><div class="faq-a">Yes — up to 5 CV profiles for different roles or industries.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="App.toggleFaq(this)">Can I upload photos and videos? <span class="faq-arr">▼</span></div><div class="faq-a">Yes — photos, work images, portfolio pieces and a 30-second pitch video.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="App.toggleFaq(this)">Can I hide my CV? <span class="faq-arr">▼</span></div><div class="faq-a">Yes — set to hidden at any time in your account settings.</div></div>
+      </div>
+      <div>
+        <h2 style="font-size:14px;font-weight:700;color:var(--blue);margin-bottom:10px;">For Recruiters</h2>
+        <div class="faq-item"><div class="faq-q" onclick="App.toggleFaq(this)">How much does searching cost? <span class="faq-arr">▼</span></div><div class="faq-a">Searching is completely free. You only pay when you want to contact someone.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="App.toggleFaq(this)">How much does contacting cost? <span class="faq-arr">▼</span></div><div class="faq-a">From £1 per CV. Buy credits in bulk — 10 for £30, 25 for £50, 50 for £80, 100 for £130. Credits never expire.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="App.toggleFaq(this)">Do I need to sign up to search? <span class="faq-arr">▼</span></div><div class="faq-a">No — guests can search and view CVs freely. Sign up only when you want to buy or save.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="App.toggleFaq(this)">Is there a money-back guarantee? <span class="faq-arr">▼</span></div><div class="faq-a">Yes — if contact details are out of date we'll refund your credit, no questions asked.</div></div>
+        <div class="faq-item"><div class="faq-q" onclick="App.toggleFaq(this)">Can I share a shortlist? <span class="faq-arr">▼</span></div><div class="faq-a">Yes — use the "Share basket" feature to send a link of your shortlisted CVs to a colleague for review.</div></div>
+      </div>
+    </div>
+    <div style="text-align:center;padding:28px 0;border-top:1px solid var(--border-light);margin-top:24px;">
+      <div style="font-size:14px;font-weight:700;margin-bottom:6px;">Still need help?</div>
+      <a href="mailto:help@seecv.com">help@seecv.com</a>
+    </div>
+  </div>
+  <footer class="footer cloud-bg"><a onclick="App.go('home')">Home</a><a>Privacy</a><span style="margin-left:auto;">© 2025 SeeCv Ltd</span></footer>
+</div>
+
+<!-- ══ MODALS ══════════════════════════════════════════ -->
 <div id="modal-signin" class="modal-overlay">
   <div class="modal">
-    <button class="modal-close" onclick="App.closeModal('modal-signin')">×</button>
+    <button class="modal-x" onclick="App.closeModal('modal-signin')">×</button>
     <h2>Sign in to SeeCv</h2>
-    <div class="type-toggle">
-      <div class="type-btn active signin-type" data-type="recruiter" onclick="document.querySelectorAll('.signin-type').forEach(b=>b.classList.remove('active'));this.classList.add('active')">
-        <div class="type-icon">🔍</div>
-        <div class="type-name">Recruiter</div>
-      </div>
-      <div class="type-btn signin-type" data-type="candidate" onclick="document.querySelectorAll('.signin-type').forEach(b=>b.classList.remove('active'));this.classList.add('active')">
-        <div class="type-icon">👤</div>
-        <div class="type-name">Candidate</div>
-      </div>
+    <div class="type-row">
+      <div class="type-opt active si-type" data-type="recruiter" onclick="document.querySelectorAll('.si-type').forEach(b=>b.classList.remove('active'));this.classList.add('active')">Recruiter</div>
+      <div class="type-opt si-type" data-type="candidate" onclick="document.querySelectorAll('.si-type').forEach(b=>b.classList.remove('active'));this.classList.add('active')">Candidate</div>
     </div>
     <div class="form-group"><label>Email address</label><input type="email" id="si-email" placeholder="you@example.com"/></div>
     <div class="form-group"><label>Password</label><input type="password" id="si-pass" placeholder="••••••••" onkeydown="if(event.key==='Enter')App.signin()"/></div>
-    <button class="btn btn-blue btn-lg w-full" onclick="App.signin()">Sign in</button>
-    <p class="text-xs text-muted text-center mt-1"><a>Forgot password?</a></p>
-    <div class="auth-switch">Don't have an account? <a onclick="App.closeModal('modal-signin');App.openModal('modal-signup')">Sign up free →</a></div>
+    <button class="btn btn-yellow btn-lg w-full mb-1" onclick="App.signin()">Sign in</button>
+    <div style="text-align:center;font-size:12px;color:var(--text-muted);">Don't have an account? <a onclick="App.closeModal('modal-signin');App.openModal('modal-signup')">Sign up free</a></div>
   </div>
 </div>
 
-<!-- Sign Up -->
 <div id="modal-signup" class="modal-overlay">
   <div class="modal">
-    <button class="modal-close" onclick="App.closeModal('modal-signup')">×</button>
+    <button class="modal-x" onclick="App.closeModal('modal-signup')">×</button>
     <h2>Join SeeCv — it's free</h2>
-    <div class="type-toggle mb-2">
-      <div class="type-btn active signup-type" data-type="candidate" onclick="document.querySelectorAll('.signup-type').forEach(b=>b.classList.remove('active'));this.classList.add('active')">
-        <div class="type-icon">👤</div>
-        <div class="type-name">I'm a Candidate</div>
-      </div>
-      <div class="type-btn signup-type" data-type="recruiter" onclick="document.querySelectorAll('.signup-type').forEach(b=>b.classList.remove('active'));this.classList.add('active')">
-        <div class="type-icon">🔍</div>
-        <div class="type-name">I'm a Recruiter</div>
-      </div>
+    <div class="type-row">
+      <div class="type-opt active su-type" data-type="candidate" onclick="document.querySelectorAll('.su-type').forEach(b=>b.classList.remove('active'));this.classList.add('active')">I'm a Candidate</div>
+      <div class="type-opt su-type" data-type="recruiter" onclick="document.querySelectorAll('.su-type').forEach(b=>b.classList.remove('active'));this.classList.add('active')">I'm a Recruiter</div>
     </div>
-    <div class="form-group"><label>Full name</label><input type="text" id="su-name" placeholder="Your full name"/></div>
+    <div class="form-group"><label>Full name</label><input type="text" id="su-name" placeholder="Your name"/></div>
     <div class="form-group"><label>Email address</label><input type="email" id="su-email" placeholder="you@example.com"/></div>
     <div class="form-group"><label>Password</label><input type="password" id="su-pass" placeholder="At least 6 characters" onkeydown="if(event.key==='Enter')App.signup()"/></div>
-    <button class="btn btn-yellow btn-lg w-full mb-1" onclick="App.signup()">Create free account →</button>
-    <p class="text-xs text-muted text-center">By signing up you agree to our <a>Terms</a> and <a>Privacy Policy</a></p>
-    <div class="auth-switch">Already have an account? <a onclick="App.closeModal('modal-signup');App.openModal('modal-signin')">Sign in</a></div>
+    <button class="btn btn-yellow btn-lg w-full mb-1" onclick="App.signup()">Create free account</button>
+    <div style="text-align:center;font-size:12px;color:var(--text-muted);">Already have an account? <a onclick="App.closeModal('modal-signup');App.openModal('modal-signin')">Sign in</a></div>
   </div>
 </div>
 
-<!-- Toast -->
 <div id="toast"></div>
 
 <script src="js/app.js"></script>
 <script>
-// Popular CVs on homepage
-function renderPopular() {
-  const grid = document.getElementById('popular-grid');
-  if (!grid) return;
-  const picks = [1,4,5,8];
-  grid.innerHTML = picks.map(id => {
-    const c = CANDIDATES.find(x=>x.id===id);
-    if (!c) return '';
-    return `<div class="popular-card" onclick="App.openProfile(${c.id})">
-      <div class="avatar av-md" style="background:${c.bg}">${c.initials}</div>
-      <p class="name">${c.name}</p>
-      <p class="role">${c.title}</p>
-      <p class="loc">📍 ${c.location}</p>
-      <div style="margin-top:8px;display:flex;flex-wrap:wrap;gap:4px;">${c.skills.slice(0,2).map(s=>`<span class="badge badge-blue">${s}</span>`).join('')}</div>
-    </div>`;
-  }).join('');
+function selectCredit(el) {
+  document.querySelectorAll('.credit-row').forEach(r=>r.classList.remove('sel'));
+  el.classList.add('sel');
+  el.querySelector('input').checked=true;
 }
-
-// Credit pack selection
-function selectPack(el) {
-  document.querySelectorAll('.credit-pack').forEach(p=>p.classList.remove('selected'));
-  el.classList.add('selected');
-  const radio = el.querySelector('input[type=radio]');
-  if (radio) { document.querySelectorAll('.credit-pack input').forEach(r=>r.checked=false); radio.checked=true; }
-}
-
-// Update basket mini-count on search page
-setInterval(() => {
-  const mc = document.getElementById('basket-mini-count');
-  if (mc && App) mc.textContent = App.basket.length + ' CV' + (App.basket.length!==1?'s':'') + ' added';
-  const bc = document.getElementById('basket-badge');
-  if (bc && App) bc.textContent = App.basket.length;
-}, 400);
-
-document.addEventListener('DOMContentLoaded', renderPopular);
+setInterval(()=>{
+  const m=document.getElementById('basket-mini');
+  if(m&&App) m.textContent=App.basket.length+' CV'+(App.basket.length!==1?'s':'');
+  const bc=document.getElementById('nav-basket-count');
+  if(bc&&App) bc.textContent=App.basket.length;
+},300);
 </script>
 </body>
 </html>
